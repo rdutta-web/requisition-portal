@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -498,6 +497,7 @@
 
       <!-- LANDING CHOICE -->
       <div id="empLanding">
+        <div id="empGreeting" style="font-size:13px;font-weight:600;color:var(--navy-lighter);margin-bottom:6px;"></div>
         <div class="section-heading">Purchase Requisition</div>
         <div class="section-sub">What would you like to do?</div>
         <div class="choice-row">
@@ -617,6 +617,7 @@
 
     <!-- DIRECTOR PANEL -->
     <section id="directorPanel" class="panel">
+      <div id="dirGreeting" style="font-size:13px;font-weight:600;color:var(--navy-lighter);margin-bottom:6px;"></div>
       <div class="section-heading">Director Dashboard</div>
       <div class="section-sub">Review, approve, or reject requisitions submitted by employees.</div>
 
@@ -674,13 +675,14 @@
   // ================================================================
   // BACKEND — Google Apps Script Web App URL
   // ================================================================
-  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxufuXPMFwSiDnbnpH2oY4_yLEJkoTopQN9ZSm_Ge0Ww-PV83GirX1zOC8ReACWaCzpqg/exec";
-
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzS1DbiuLQuKFiQ8xzy09ntO-woZ-bQjsIzCeaD4MeCnkwsHh-BTFvb2hdfRDWq7S7REQ/exec";
   // ---------- Authorized account directory ----------
   var AUTHORIZED_USERS = {
-    "rupamislam123@gmail.com":            { role: "employee", initials:"RI" },
-    "rajarshidutta123@gmail.com":         { role: "employee", initials:"RD" },
-    "r.dutta@skytelteleservices.com":     { role: "director", initials:"RD" }
+    "rupamislam123@gmail.com":              { role: "employee", initials:"RI", name:"Rupam Islam" },
+    "rajarshidutta123@gmail.com":           { role: "employee", initials:"RD", name:"Rajarshi Dutta" },
+    "s.das@skytelservices.com":             { role: "employee", initials:"SD", name:"Santu Das" },
+    "marketing.kol@skytelteleservices.com": { role: "employee", initials:"IS", name:"Ishita Saha" },
+    "js@skytelteleservices.com":            { role: "director", initials:"JS", name:"" }
   };
 
   var state = {
@@ -751,7 +753,7 @@
       email: email,
       role: user.role,
       initials: user.initials,
-      name: payload.name || email
+      name: user.name || payload.name || email
     };
     enterApp();
   }
@@ -784,13 +786,19 @@
     document.getElementById("directorPanel").classList.remove("active");
 
     if(u.role === "director"){
+      document.getElementById("dirGreeting").textContent = "Hi! Dear Sir";
       document.getElementById("directorPanel").classList.add("active");
       renderDirectorView();
     } else {
+      document.getElementById("empGreeting").textContent = "Hi, " + firstName(u.name);
       document.getElementById("employeePanel").classList.add("active");
       showEmpView("landing");
       renderMyRequests();
     }
+  }
+
+  function firstName(fullName){
+    return (fullName || "").trim().split(" ")[0] || "there";
   }
 
   initGoogleSignIn();
