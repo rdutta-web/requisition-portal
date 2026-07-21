@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -545,11 +546,11 @@
               <div class="form-grid">
                 <div class="form-group">
                   <label>Client Name</label>
-                  <input type="text" id="singleClient" placeholder="Client name" required>
+                  <input type="text" id="singleClient" placeholder="Client name">
                 </div>
                 <div class="form-group">
                   <label>Quantity</label>
-                  <input type="number" id="singleQty" min="1" value="1" required>
+                  <input type="number" id="singleQty" min="1" value="1">
                 </div>
               </div>
               <div class="form-group">
@@ -894,9 +895,9 @@
     var tr = document.createElement("tr");
     tr.setAttribute("data-line-id", id);
     tr.innerHTML =
-      '<td><input type="text" class="li-item" placeholder="Item" required></td>' +
-      '<td><input type="number" class="li-qty" min="1" value="1" required></td>' +
-      '<td><input type="text" class="li-client" placeholder="Client" required></td>' +
+      '<td><input type="text" class="li-item" placeholder="Item"></td>' +
+      '<td><input type="number" class="li-qty" min="1" value="1"></td>' +
+      '<td><input type="text" class="li-client" placeholder="Client"></td>' +
       '<td>'+costTypeSelectHtml("li-costtype")+'</td>' +
       '<td class="li-cost-wrap"></td>' +
       '<td><button type="button" class="remove-line-btn" title="Remove">&times;</button></td>';
