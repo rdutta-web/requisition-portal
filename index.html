@@ -335,6 +335,113 @@
     header.topbar{padding:14px;}
     main{padding:16px;}
   }
+
+  /* ===== Employee landing choice ===== */
+  .choice-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .choice-card{
+    background:var(--card);border:1.5px solid var(--border);border-radius:12px;
+    padding:28px 24px;cursor:pointer;text-align:center;transition:border-color .15s ease, transform .1s ease;
+  }
+  .choice-card:hover{border-color:var(--navy-lighter);transform:translateY(-2px);}
+  .choice-card .ci{font-size:28px;margin-bottom:10px;}
+  .choice-card h3{font-size:15.5px;color:var(--navy);margin-bottom:5px;}
+  .choice-card p{font-size:12px;color:var(--text-muted);}
+  @media (max-width:640px){.choice-row{grid-template-columns:1fr;}}
+
+  .back-link{
+    display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--navy-lighter);
+    cursor:pointer;margin-bottom:16px;font-weight:600;
+  }
+  .back-link:hover{text-decoration:underline;}
+
+  .split-toggle-row{
+    display:flex;align-items:center;justify-content:space-between;
+    background:var(--bg);border:1.5px solid var(--border);border-radius:9px;
+    padding:14px 16px;margin-bottom:18px;
+  }
+  .split-toggle-row .stt-label{font-size:13px;font-weight:600;color:var(--navy);}
+  .split-toggle-row .stt-sub{font-size:11.5px;color:var(--text-muted);margin-top:2px;}
+  .toggle-switch{
+    position:relative;width:44px;height:24px;background:#c3c9d4;border-radius:20px;
+    cursor:pointer;flex-shrink:0;transition:background .15s ease;
+  }
+  .toggle-switch.on{background:var(--navy);}
+  .toggle-switch .knob{
+    position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;
+    background:#fff;transition:left .15s ease;
+  }
+  .toggle-switch.on .knob{left:23px;}
+
+  .line-items-table{width:100%;border-collapse:collapse;margin-bottom:14px;}
+  .line-items-table th{
+    background:var(--bg);color:var(--text-muted);font-size:10.5px;text-transform:uppercase;
+    letter-spacing:0.03em;text-align:left;padding:8px 10px;border-bottom:1.5px solid var(--border);
+  }
+  .line-items-table td{padding:7px 6px;border-bottom:1px solid var(--border);vertical-align:top;}
+  .line-items-table input, .line-items-table select{
+    width:100%;padding:8px 9px;border:1.5px solid var(--border);border-radius:7px;
+    font-family:'Inter',sans-serif;font-size:12.5px;background:var(--bg);
+  }
+  .remove-line-btn{
+    background:var(--danger-bg);color:var(--danger);border:none;border-radius:6px;
+    width:26px;height:26px;cursor:pointer;font-size:14px;line-height:1;
+  }
+  .remove-line-btn:hover{background:var(--danger);color:#fff;}
+  .add-line-btn{
+    background:transparent;border:1.5px dashed var(--navy-lighter);color:var(--navy-lighter);
+    padding:9px 16px;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;margin-bottom:18px;
+  }
+  .add-line-btn:hover{background:var(--bg);}
+
+  .client-details-box{
+    background:var(--bg);border:1.5px dashed var(--border);border-radius:10px;
+    padding:18px;margin-bottom:18px;
+  }
+  .client-details-box .cdb-title{font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:14px;}
+
+  .cost-type-row{display:grid;grid-template-columns:1fr;gap:10px;margin-top:8px;}
+  .cost-value-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
+  .cost-value-fields.single{grid-template-columns:1fr;}
+
+  .marker-dot{
+    display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;flex-shrink:0;
+  }
+  .marker-dot.red{background:var(--danger);}
+  .marker-dot.green{background:var(--success);}
+  .marker-cell{display:flex;align-items:center;}
+
+  .lookup-box{display:flex;gap:10px;margin-bottom:22px;}
+  .lookup-box input{
+    flex:1;padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;
+    font-family:'JetBrains Mono',monospace;font-size:13.5px;
+  }
+  .lookup-box button{
+    background:var(--navy);color:#fff;border:none;padding:0 22px;border-radius:8px;
+    font-size:13px;font-weight:600;cursor:pointer;
+  }
+  .lookup-box button:hover{background:var(--navy-lighter);}
+
+  .serial-badge{
+    display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12.5px;
+    font-weight:700;color:var(--navy);background:var(--bg);border:1px solid var(--border);
+    padding:4px 10px;border-radius:6px;
+  }
+
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+    background:var(--navy);color:#fff;padding:12px 22px;border-radius:9px;
+    font-size:13px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,0.25);
+    display:none;z-index:200;
+  }
+  .toast.show{display:block;}
+  .toast.error{background:var(--danger);}
+
+  .loading-note{padding:20px;text-align:center;color:var(--text-muted);font-size:12.5px;}
+
+  .cost-type-select{
+    padding:9px 11px;border:1.5px solid var(--border);border-radius:8px;font-size:12.5px;
+    font-family:'Inter',sans-serif;background:var(--bg);
+  }
 </style>
 </head>
 <body>
@@ -387,59 +494,124 @@
   <main>
     <!-- EMPLOYEE PANEL -->
     <section id="employeePanel" class="panel">
-      <div class="section-heading">Raise a Purchase Requisition</div>
-      <div class="section-sub">Fill in the details below. The Director will be notified instantly.</div>
 
-      <div class="card">
-        <form id="requisitionForm">
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Item Name / Description</label>
-              <input type="text" id="itemName" placeholder="e.g. Dell Laptop Charger 65W" required>
-            </div>
-            <div class="form-group">
-              <label>Quantity</label>
-              <input type="number" id="itemQty" min="1" value="1" required>
-            </div>
+      <!-- LANDING CHOICE -->
+      <div id="empLanding">
+        <div class="section-heading">Purchase Requisition</div>
+        <div class="section-sub">What would you like to do?</div>
+        <div class="choice-row">
+          <div class="choice-card" id="choiceNew">
+            <div class="ci">🆕</div>
+            <h3>New Requisition</h3>
+            <p>Raise a fresh purchase requisition with a new serial number.</p>
           </div>
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Estimated Cost (₹)</label>
-              <input type="number" id="itemCost" min="0" placeholder="e.g. 2500" required>
-            </div>
-            <div class="form-group">
-              <label>Priority</label>
-              <select id="itemPriority">
-                <option value="Low">Low</option>
-                <option value="Medium" selected>Medium</option>
-                <option value="Urgent">Urgent</option>
-              </select>
-            </div>
+          <div class="choice-card" id="choiceUpdate">
+            <div class="ci">✏️</div>
+            <h3>Update Existing Requisition</h3>
+            <p>Look up a requisition by its serial number and update cost details.</p>
           </div>
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Preferred Vendor (optional)</label>
-              <input type="text" id="itemVendor" placeholder="e.g. Vijay Sales, Kolkata">
-            </div>
-            <div class="form-group">
-              <label>Supporting Document (optional)</label>
-              <input type="file" id="itemDoc">
-            </div>
-          </div>
-          <div class="form-grid full">
-            <div class="form-group">
-              <label>Purpose / Justification</label>
-              <textarea id="itemPurpose" placeholder="Why is this required?" required></textarea>
-            </div>
-          </div>
-          <button type="submit" class="submit-btn">Submit Requisition</button>
-        </form>
+        </div>
+        <div class="my-requests">
+          <h3>My Requests</h3>
+          <div id="myRequestsTableWrap"><div class="loading-note">Loading...</div></div>
+        </div>
       </div>
 
-      <div class="my-requests">
-        <h3>My Requests</h3>
-        <div id="myRequestsTableWrap"></div>
+      <!-- NEW REQUISITION FORM -->
+      <div id="empNewReq" style="display:none;">
+        <span class="back-link" id="backFromNew">&larr; Back</span>
+        <div class="section-heading">New Requisition</div>
+        <div class="section-sub">A serial number will be generated on submit. The Director is notified instantly.</div>
+
+        <div class="card">
+          <form id="requisitionForm">
+            <div class="form-grid full">
+              <div class="form-group">
+                <label>Item Description</label>
+                <textarea id="itemDescription" placeholder="Overall description of what's being requested" required></textarea>
+              </div>
+            </div>
+
+            <div class="split-toggle-row">
+              <div>
+                <div class="stt-label">Split across multiple clients?</div>
+                <div class="stt-sub">Turn this on if this requisition covers more than one client/item line.</div>
+              </div>
+              <div class="toggle-switch" id="splitToggle"><div class="knob"></div></div>
+            </div>
+
+            <!-- NOT SPLIT: single line -->
+            <div id="singleLineBlock">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Client Name</label>
+                  <input type="text" id="singleClient" placeholder="Client name" required>
+                </div>
+                <div class="form-group">
+                  <label>Quantity</label>
+                  <input type="number" id="singleQty" min="1" value="1" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Cost Type</label>
+                <select class="cost-type-select" id="singleCostType" style="width:100%;">
+                  <option value="To Be Filled Later">To Be Filled Later</option>
+                  <option value="Range">Range</option>
+                  <option value="Approx">Approx</option>
+                  <option value="Exact">Exact</option>
+                </select>
+                <div id="singleCostValueWrap"></div>
+              </div>
+            </div>
+
+            <!-- SPLIT: table -->
+            <div id="splitBlock" style="display:none;">
+              <table class="line-items-table" id="lineItemsTable">
+                <thead>
+                  <tr><th style="width:22%">Item</th><th style="width:10%">Qty</th><th style="width:18%">Client</th><th style="width:18%">Cost Type</th><th>Cost Value</th><th style="width:34px;"></th></tr>
+                </thead>
+                <tbody id="lineItemsBody"></tbody>
+              </table>
+              <button type="button" class="add-line-btn" id="addLineBtn">+ Add Line</button>
+            </div>
+
+            <div class="client-details-box">
+              <div class="cdb-title">Additional Details</div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Sales Manager Name (optional)</label>
+                  <input type="text" id="salesManager" placeholder="e.g. Ashish Roy">
+                </div>
+                <div class="form-group">
+                  <label>Priority</label>
+                  <select id="itemPriority">
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="Urgent">Urgent</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitReqBtn">Submit Requisition</button>
+          </form>
+        </div>
       </div>
+
+      <!-- UPDATE EXISTING REQUISITION -->
+      <div id="empUpdateReq" style="display:none;">
+        <span class="back-link" id="backFromUpdate">&larr; Back</span>
+        <div class="section-heading">Update Existing Requisition</div>
+        <div class="section-sub">Enter the serial number to look it up and update cost details.</div>
+
+        <div class="lookup-box">
+          <input type="text" id="lookupSerialInput" placeholder="e.g. SKY-PR-000001">
+          <button id="lookupSerialBtn">Look Up</button>
+        </div>
+
+        <div id="updateResultWrap"></div>
+      </div>
+
     </section>
 
     <!-- DIRECTOR PANEL -->
@@ -482,6 +654,8 @@
   </div>
 </div>
 
+<div id="toast" class="toast"></div>
+
 <script>
 (function(){
   "use strict";
@@ -496,6 +670,11 @@
   // ================================================================
   var GOOGLE_CLIENT_ID = "471164847299-atuh5sfbmc23fnmm41uk8gatfo1kg17r.apps.googleusercontent.com";
 
+  // ================================================================
+  // BACKEND — Google Apps Script Web App URL
+  // ================================================================
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxufuXPMFwSiDnbnpH2oY4_yLEJkoTopQN9ZSm_Ge0Ww-PV83GirX1zOC8ReACWaCzpqg/exec";
+
   // ---------- Authorized account directory ----------
   var AUTHORIZED_USERS = {
     "rupamislam123@gmail.com":            { role: "employee", initials:"RI" },
@@ -505,27 +684,8 @@
 
   var state = {
     currentUser: null,
-    requests: [
-      {
-        id: "REQ-1001", employeeKey:"rupamislam123@gmail.com", employeeName:"Rupam Islam",
-        item:"HP LaserJet Toner Cartridge", qty:2, cost:6200, vendor:"Metro Traders",
-        purpose:"Existing toner exhausted, needed for HOD reports printing.",
-        priority:"Medium", status:"Pending", submittedAt:"2026-07-15 10:22", comment:""
-      },
-      {
-        id: "REQ-1002", employeeKey:"rajarshidutta123@gmail.com", employeeName:"Rajarshi Dutta",
-        item:"Ergonomic Office Chair", qty:1, cost:8500, vendor:"",
-        purpose:"Current chair backrest broken, causing discomfort.",
-        priority:"Low", status:"Approved", submittedAt:"2026-07-12 09:05", comment:"Approved — go ahead."
-      },
-      {
-        id: "REQ-1003", employeeKey:"rupamislam123@gmail.com", employeeName:"Rupam Islam",
-        item:"Cat6 Network Cable (100m box)", qty:3, cost:4500, vendor:"BNRI Site Vendor",
-        purpose:"Site cabling replacement at BNRI, urgent client requirement.",
-        priority:"Urgent", status:"Pending", submittedAt:"2026-07-18 14:40", comment:""
-      }
-    ],
-    nextId: 1004
+    currentUserProfile: null,
+    dashboardCache: []   // last fetched rows from the Dashboard sheet
   };
 
   var pendingModalAction = null; // { requestId, decision }
@@ -627,104 +787,416 @@
       renderDirectorView();
     } else {
       document.getElementById("employeePanel").classList.add("active");
+      showEmpView("landing");
       renderMyRequests();
     }
   }
 
   initGoogleSignIn();
 
-  // ---------- Employee: submit + own requests ----------
-  document.getElementById("requisitionForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    var u = state.currentUserProfile;
-    var newReq = {
-      id: "REQ-" + state.nextId++,
-      employeeKey: state.currentUser,
-      employeeName: u.name,
-      item: document.getElementById("itemName").value,
-      qty: parseInt(document.getElementById("itemQty").value, 10) || 1,
-      cost: parseFloat(document.getElementById("itemCost").value) || 0,
-      vendor: document.getElementById("itemVendor").value,
-      purpose: document.getElementById("itemPurpose").value,
-      priority: document.getElementById("itemPriority").value,
-      status: "Pending",
-      submittedAt: nowStamp(),
-      comment: ""
-    };
-    state.requests.unshift(newReq);
+  // ================================================================
+  // BACKEND HELPERS
+  // ================================================================
+  function apiGet(params){
+    var qs = Object.keys(params).map(function(k){
+      return encodeURIComponent(k) + "=" + encodeURIComponent(params[k]);
+    }).join("&");
+    return fetch(APPS_SCRIPT_URL + "?" + qs).then(function(r){ return r.json(); });
+  }
+
+  function apiPost(payload){
+    return fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" }, // avoids CORS preflight on Apps Script
+      body: JSON.stringify(payload)
+    }).then(function(r){ return r.json(); });
+  }
+
+  function showToast(msg, isError){
+    var t = document.getElementById("toast");
+    t.textContent = msg;
+    t.className = "toast show" + (isError ? " error" : "");
+    setTimeout(function(){ t.className = "toast"; }, 3200);
+  }
+
+  // ================================================================
+  // EMPLOYEE: view switching
+  // ================================================================
+  function showEmpView(view){
+    document.getElementById("empLanding").style.display = view === "landing" ? "block" : "none";
+    document.getElementById("empNewReq").style.display = view === "new" ? "block" : "none";
+    document.getElementById("empUpdateReq").style.display = view === "update" ? "block" : "none";
+    if(view === "new") resetNewReqForm();
+    if(view === "update"){
+      document.getElementById("lookupSerialInput").value = "";
+      document.getElementById("updateResultWrap").innerHTML = "";
+    }
+  }
+
+  document.getElementById("choiceNew").addEventListener("click", function(){ showEmpView("new"); });
+  document.getElementById("choiceUpdate").addEventListener("click", function(){ showEmpView("update"); });
+  document.getElementById("backFromNew").addEventListener("click", function(){ showEmpView("landing"); renderMyRequests(); });
+  document.getElementById("backFromUpdate").addEventListener("click", function(){ showEmpView("landing"); renderMyRequests(); });
+
+  // ================================================================
+  // NEW REQUISITION FORM: split toggle + line items
+  // ================================================================
+  var splitOn = false;
+  var lineIdCounter = 0;
+
+  var COST_TYPES = ["To Be Filled Later", "Range", "Approx", "Exact"];
+
+  function costTypeSelectHtml(cls, extra){
+    var opts = COST_TYPES.map(function(ct){ return '<option value="'+ct+'">'+ct+'</option>'; }).join("");
+    return '<select class="'+cls+'" '+(extra||"")+'>'+opts+'</select>';
+  }
+
+  function resetNewReqForm(){
     document.getElementById("requisitionForm").reset();
-    document.getElementById("itemQty").value = 1;
-    renderMyRequests();
+    splitOn = false;
+    document.getElementById("splitToggle").classList.remove("on");
+    document.getElementById("singleLineBlock").style.display = "block";
+    document.getElementById("splitBlock").style.display = "none";
+    document.getElementById("lineItemsBody").innerHTML = "";
+    lineIdCounter = 0;
+    addLineRow(); // start split table with one row ready
+    renderSingleCostValueFields("To Be Filled Later");
+  }
+
+  document.getElementById("splitToggle").addEventListener("click", function(){
+    splitOn = !splitOn;
+    this.classList.toggle("on", splitOn);
+    document.getElementById("singleLineBlock").style.display = splitOn ? "none" : "block";
+    document.getElementById("splitBlock").style.display = splitOn ? "block" : "none";
   });
 
-  function nowStamp(){
-    var d = new Date();
-    var pad = function(n){ return n<10 ? "0"+n : n; };
-    return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+" "+pad(d.getHours())+":"+pad(d.getMinutes());
+  document.getElementById("singleCostType").addEventListener("change", function(){
+    renderSingleCostValueFields(this.value);
+  });
+
+  function renderSingleCostValueFields(costType){
+    var wrap = document.getElementById("singleCostValueWrap");
+    if(costType === "Range"){
+      wrap.innerHTML = '<div class="cost-value-fields">' +
+        '<input type="number" id="singleCostMin" placeholder="Min (₹)" min="0">' +
+        '<input type="number" id="singleCostMax" placeholder="Max (₹)" min="0"></div>';
+    } else if(costType === "Approx" || costType === "Exact"){
+      wrap.innerHTML = '<div class="cost-value-fields single">' +
+        '<input type="number" id="singleCostValue" placeholder="'+(costType==="Exact"?"Exact":"Approx")+' cost (₹)" min="0"></div>';
+    } else {
+      wrap.innerHTML = "";
+    }
   }
 
+  function addLineRow(){
+    lineIdCounter++;
+    var id = "ln" + lineIdCounter;
+    var tr = document.createElement("tr");
+    tr.setAttribute("data-line-id", id);
+    tr.innerHTML =
+      '<td><input type="text" class="li-item" placeholder="Item" required></td>' +
+      '<td><input type="number" class="li-qty" min="1" value="1" required></td>' +
+      '<td><input type="text" class="li-client" placeholder="Client" required></td>' +
+      '<td>'+costTypeSelectHtml("li-costtype")+'</td>' +
+      '<td class="li-cost-wrap"></td>' +
+      '<td><button type="button" class="remove-line-btn" title="Remove">&times;</button></td>';
+    document.getElementById("lineItemsBody").appendChild(tr);
+
+    var costTypeSel = tr.querySelector(".li-costtype");
+    renderLineCostValue(tr, "To Be Filled Later");
+    costTypeSel.addEventListener("change", function(){
+      renderLineCostValue(tr, this.value);
+    });
+    tr.querySelector(".remove-line-btn").addEventListener("click", function(){
+      if(document.getElementById("lineItemsBody").children.length > 1){
+        tr.remove();
+      } else {
+        showToast("At least one line is required.", true);
+      }
+    });
+  }
+
+  function renderLineCostValue(tr, costType){
+    var wrap = tr.querySelector(".li-cost-wrap");
+    if(costType === "Range"){
+      wrap.innerHTML = '<div style="display:flex;gap:4px;">' +
+        '<input type="number" class="li-cost-min" placeholder="Min" min="0">' +
+        '<input type="number" class="li-cost-max" placeholder="Max" min="0"></div>';
+    } else if(costType === "Approx" || costType === "Exact"){
+      wrap.innerHTML = '<input type="number" class="li-cost-value" placeholder="'+(costType==="Exact"?"Exact":"Approx")+'" min="0">';
+    } else {
+      wrap.innerHTML = "";
+    }
+  }
+
+  document.getElementById("addLineBtn").addEventListener("click", addLineRow);
+
+  function collectLineItems(){
+    if(!splitOn){
+      var costType = document.getElementById("singleCostType").value;
+      var li = {
+        item: document.getElementById("itemDescription").value.trim(),
+        qty: parseInt(document.getElementById("singleQty").value, 10) || 1,
+        client: document.getElementById("singleClient").value.trim(),
+        costType: costType,
+        costValue: "", costMin: "", costMax: ""
+      };
+      if(costType === "Range"){
+        li.costMin = document.getElementById("singleCostMin") ? document.getElementById("singleCostMin").value : "";
+        li.costMax = document.getElementById("singleCostMax") ? document.getElementById("singleCostMax").value : "";
+      } else if(costType === "Approx" || costType === "Exact"){
+        li.costValue = document.getElementById("singleCostValue") ? document.getElementById("singleCostValue").value : "";
+      }
+      return [li];
+    } else {
+      var rows = Array.prototype.slice.call(document.getElementById("lineItemsBody").children);
+      return rows.map(function(tr){
+        var costType = tr.querySelector(".li-costtype").value;
+        var li = {
+          item: tr.querySelector(".li-item").value.trim(),
+          qty: parseInt(tr.querySelector(".li-qty").value, 10) || 1,
+          client: tr.querySelector(".li-client").value.trim(),
+          costType: costType,
+          costValue: "", costMin: "", costMax: ""
+        };
+        if(costType === "Range"){
+          var minEl = tr.querySelector(".li-cost-min"), maxEl = tr.querySelector(".li-cost-max");
+          li.costMin = minEl ? minEl.value : "";
+          li.costMax = maxEl ? maxEl.value : "";
+        } else if(costType === "Approx" || costType === "Exact"){
+          var valEl = tr.querySelector(".li-cost-value");
+          li.costValue = valEl ? valEl.value : "";
+        }
+        return li;
+      });
+    }
+  }
+
+  function validateLineItems(items){
+    for(var i=0;i<items.length;i++){
+      var li = items[i];
+      if(!li.item){ return "Item name is required on every line."; }
+      if(!li.client){ return "Client name is required on every line."; }
+      if(!li.qty || li.qty < 1){ return "Quantity is required on every line."; }
+    }
+    return null;
+  }
+
+  document.getElementById("requisitionForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    var itemDescription = document.getElementById("itemDescription").value.trim();
+    if(!itemDescription){ showToast("Item description is required.", true); return; }
+
+    var lineItems = collectLineItems();
+    var err = validateLineItems(lineItems);
+    if(err){ showToast(err, true); return; }
+
+    var u = state.currentUserProfile;
+    var payload = {
+      action: "newSubmission",
+      employeeName: u.name,
+      employeeEmail: state.currentUser,
+      itemDescription: itemDescription,
+      split: splitOn,
+      salesManager: document.getElementById("salesManager").value.trim(),
+      priority: document.getElementById("itemPriority").value,
+      lineItems: lineItems
+    };
+
+    var btn = document.getElementById("submitReqBtn");
+    btn.disabled = true; btn.textContent = "Submitting...";
+
+    apiPost(payload).then(function(res){
+      btn.disabled = false; btn.textContent = "Submit Requisition";
+      if(res.error){ showToast(res.error, true); return; }
+      showToast("Requisition " + res.serial + " submitted successfully.");
+      showEmpView("landing");
+      renderMyRequests();
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = "Submit Requisition";
+      showToast("Network error — could not submit. Please retry.", true);
+    });
+  });
+
+  // ================================================================
+  // MY REQUESTS (employee's own dashboard rows)
+  // ================================================================
   function renderMyRequests(){
     var wrap = document.getElementById("myRequestsTableWrap");
-    var mine = state.requests.filter(function(r){ return r.employeeKey === state.currentUser; });
-    if(mine.length === 0){
-      wrap.innerHTML = '<div class="card empty-state">No requests submitted yet.</div>';
-      return;
-    }
-    var html = '<table><thead><tr>' +
-      '<th>Item</th><th>Qty</th><th>Cost (₹)</th><th>Priority</th><th>Status</th><th>Submitted</th><th>Director Comment</th>' +
-      '</tr></thead><tbody>';
-    mine.forEach(function(r){
-      html += '<tr>' +
-        '<td>'+escapeHtml(r.item)+'</td>' +
-        '<td>'+r.qty+'</td>' +
-        '<td>'+r.cost.toLocaleString('en-IN')+'</td>' +
-        '<td><span class="priority-pill '+r.priority.toLowerCase()+'">'+r.priority+'</span></td>' +
-        '<td><span class="status-pill '+r.status.toLowerCase()+'">'+r.status+'</span></td>' +
-        '<td>'+r.submittedAt+'</td>' +
-        '<td>'+(r.comment ? '<span class="decided-note">'+escapeHtml(r.comment)+'</span>' : '—')+'</td>' +
-        '</tr>';
+    wrap.innerHTML = '<div class="loading-note">Loading...</div>';
+    apiGet({ action: "getDashboard", employeeEmail: state.currentUser }).then(function(rows){
+      if(rows.error){ wrap.innerHTML = '<div class="card empty-state">'+escapeHtml(rows.error)+'</div>'; return; }
+      if(!rows.length){ wrap.innerHTML = '<div class="card empty-state">No requests submitted yet.</div>'; return; }
+
+      var html = '<table><thead><tr>' +
+        '<th>Serial No</th><th>Item</th><th>Client(s)</th><th>Cost Type</th><th>Total Cost (₹)</th>' +
+        '<th>Status</th><th>Submitted</th><th>Director Comment</th>' +
+        '</tr></thead><tbody>';
+      rows.sort(function(a,b){ return (b["Serial No"]||"").localeCompare(a["Serial No"]||""); });
+      rows.forEach(function(r){
+        html += '<tr>' +
+          '<td><span class="serial-badge">'+escapeHtml(r["Serial No"])+'</span></td>' +
+          '<td>'+escapeHtml(r["Item Summary"])+'</td>' +
+          '<td>'+escapeHtml(r["Client(s)"])+'</td>' +
+          '<td class="marker-cell"><span class="marker-dot '+(r["Marker Color"]==="Green"?"green":"red")+'"></span>'+escapeHtml(r["Overall Cost Type"])+'</td>' +
+          '<td>'+(r["Total Cost"] ? Number(r["Total Cost"]).toLocaleString('en-IN') : '—')+'</td>' +
+          '<td><span class="status-pill '+String(r["Status"]||"pending").toLowerCase()+'">'+escapeHtml(r["Status"])+'</span></td>' +
+          '<td>'+escapeHtml(r["Submission Date"])+' '+escapeHtml(r["Submission Time"])+'</td>' +
+          '<td>'+(r["Director Comment"] ? '<span class="decided-note">'+escapeHtml(r["Director Comment"])+'</span>' : '—')+'</td>' +
+          '</tr>';
+      });
+      html += '</tbody></table>';
+      wrap.innerHTML = html;
+    }).catch(function(){
+      wrap.innerHTML = '<div class="card empty-state">Could not load your requests. Check your connection.</div>';
     });
-    html += '</tbody></table>';
-    wrap.innerHTML = html;
   }
 
-  // ---------- Director dashboard ----------
+  // ================================================================
+  // UPDATE EXISTING REQUISITION (lookup by serial + edit cost)
+  // ================================================================
+  document.getElementById("lookupSerialBtn").addEventListener("click", function(){
+    var serial = document.getElementById("lookupSerialInput").value.trim();
+    if(!serial){ showToast("Enter a serial number.", true); return; }
+    var wrap = document.getElementById("updateResultWrap");
+    wrap.innerHTML = '<div class="loading-note">Looking up '+escapeHtml(serial)+'...</div>';
+
+    apiGet({ action: "getBySerial", serial: serial }).then(function(r){
+      if(r.error){ wrap.innerHTML = '<div class="card empty-state">'+escapeHtml(r.error)+'</div>'; return; }
+      renderUpdateForm(r);
+    }).catch(function(){
+      wrap.innerHTML = '<div class="card empty-state">Could not reach the server. Check your connection.</div>';
+    });
+  });
+
+  function renderUpdateForm(r){
+    var wrap = document.getElementById("updateResultWrap");
+    var lineItems = [];
+    try{ lineItems = JSON.parse(r["Line Items Detail"] || "[]"); }catch(e){ lineItems = []; }
+
+    var rowsHtml = lineItems.map(function(li, idx){
+      return '<tr data-idx="'+idx+'">' +
+        '<td>'+escapeHtml(li.item)+'</td>' +
+        '<td>'+escapeHtml(String(li.qty))+'</td>' +
+        '<td>'+escapeHtml(li.client)+'</td>' +
+        '<td>'+costTypeSelectHtml("upd-costtype")+'</td>' +
+        '<td class="upd-cost-wrap"></td>' +
+        '</tr>';
+    }).join("");
+
+    wrap.innerHTML =
+      '<div class="card">' +
+        '<div style="margin-bottom:14px;"><span class="serial-badge">'+escapeHtml(r["Serial No"])+'</span> ' +
+        '<span class="status-pill '+String(r["Status"]||"pending").toLowerCase()+'" style="margin-left:8px;">'+escapeHtml(r["Status"])+'</span></div>' +
+        '<div style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">'+escapeHtml(r["Item Summary"])+'</div>' +
+        '<table class="line-items-table"><thead><tr><th>Item</th><th>Qty</th><th>Client</th><th>Cost Type</th><th>Cost Value</th></tr></thead>' +
+        '<tbody id="updLineBody">'+rowsHtml+'</tbody></table>' +
+        '<button type="button" class="submit-btn" id="saveUpdateBtn">Save Changes</button>' +
+      '</div>';
+
+    var updRows = Array.prototype.slice.call(document.getElementById("updLineBody").children);
+    updRows.forEach(function(tr, idx){
+      var li = lineItems[idx];
+      var sel = tr.querySelector(".upd-costtype");
+      sel.value = li.costType || "To Be Filled Later";
+      renderUpdLineCostValue(tr, sel.value, li);
+      sel.addEventListener("change", function(){ renderUpdLineCostValue(tr, this.value, li); });
+    });
+
+    document.getElementById("saveUpdateBtn").addEventListener("click", function(){
+      var updatedItems = updRows.map(function(tr, idx){
+        var orig = lineItems[idx];
+        var costType = tr.querySelector(".upd-costtype").value;
+        var li = { item: orig.item, qty: orig.qty, client: orig.client, costType: costType, costValue:"", costMin:"", costMax:"" };
+        if(costType === "Range"){
+          var minEl = tr.querySelector(".upd-cost-min"), maxEl = tr.querySelector(".upd-cost-max");
+          li.costMin = minEl ? minEl.value : "";
+          li.costMax = maxEl ? maxEl.value : "";
+        } else if(costType === "Approx" || costType === "Exact"){
+          var valEl = tr.querySelector(".upd-cost-value");
+          li.costValue = valEl ? valEl.value : "";
+        }
+        return li;
+      });
+
+      var btn = document.getElementById("saveUpdateBtn");
+      btn.disabled = true; btn.textContent = "Saving...";
+      apiPost({
+        action: "updateRequisition",
+        serial: r["Serial No"],
+        employeeEmail: state.currentUser,
+        lineItems: updatedItems
+      }).then(function(res){
+        btn.disabled = false; btn.textContent = "Save Changes";
+        if(res.error){ showToast(res.error, true); return; }
+        showToast("Requisition " + r["Serial No"] + " updated.");
+        showEmpView("landing");
+        renderMyRequests();
+      }).catch(function(){
+        btn.disabled = false; btn.textContent = "Save Changes";
+        showToast("Network error — could not save. Please retry.", true);
+      });
+    });
+  }
+
+  function renderUpdLineCostValue(tr, costType, li){
+    var wrap = tr.querySelector(".upd-cost-wrap");
+    if(costType === "Range"){
+      wrap.innerHTML = '<div style="display:flex;gap:4px;">' +
+        '<input type="number" class="upd-cost-min" placeholder="Min" min="0" value="'+(li.costMin||"")+'">' +
+        '<input type="number" class="upd-cost-max" placeholder="Max" min="0" value="'+(li.costMax||"")+'"></div>';
+    } else if(costType === "Approx" || costType === "Exact"){
+      wrap.innerHTML = '<input type="number" class="upd-cost-value" placeholder="'+(costType==="Exact"?"Exact":"Approx")+'" min="0" value="'+(li.costValue||"")+'">';
+    } else {
+      wrap.innerHTML = "";
+    }
+  }
+
+  // ================================================================
+  // DIRECTOR DASHBOARD
+  // ================================================================
   var filterStatus = document.getElementById("filterStatus");
   var filterPriority = document.getElementById("filterPriority");
   filterStatus.addEventListener("change", renderDirectorView);
   filterPriority.addEventListener("change", renderDirectorView);
 
   function renderDirectorView(){
-    renderStats();
-    renderDirectorTable();
+    document.getElementById("directorTableWrap").innerHTML = '<div class="loading-note">Loading...</div>';
+    apiGet({ action: "getDashboard" }).then(function(rows){
+      if(rows.error){ document.getElementById("directorTableWrap").innerHTML = '<div class="card empty-state">'+escapeHtml(rows.error)+'</div>'; return; }
+      state.dashboardCache = rows;
+      renderStats(rows);
+      renderDirectorTable(rows);
+    }).catch(function(){
+      document.getElementById("directorTableWrap").innerHTML = '<div class="card empty-state">Could not load dashboard. Check your connection.</div>';
+    });
   }
 
-  function renderStats(){
-    var total = state.requests.length;
-    var pending = state.requests.filter(function(r){ return r.status === "Pending"; }).length;
-    var approved = state.requests.filter(function(r){ return r.status === "Approved"; }).length;
-    var rejected = state.requests.filter(function(r){ return r.status === "Rejected"; }).length;
+  function renderStats(rows){
+    var total = rows.length;
+    var pending = rows.filter(function(r){ return r["Status"] === "Pending"; }).length;
+    var approved = rows.filter(function(r){ return r["Status"] === "Approved"; }).length;
+    var incomplete = rows.filter(function(r){ return r["Marker Color"] === "Red"; }).length;
 
-    var statHtml =
+    document.getElementById("statsRow").innerHTML =
       statCard(total, "Total Requests") +
       statCard(pending, "Pending Review") +
       statCard(approved, "Approved") +
-      statCard(rejected, "Rejected");
-    document.getElementById("statsRow").innerHTML = statHtml;
+      statCard(incomplete, "Incomplete Cost");
   }
 
   function statCard(num, label){
     return '<div class="stat-card"><div class="stat-num">'+num+'</div><div class="stat-label">'+label+'</div></div>';
   }
 
-  function renderDirectorTable(){
+  function renderDirectorTable(rows){
     var wrap = document.getElementById("directorTableWrap");
     var sFilter = filterStatus.value;
     var pFilter = filterPriority.value;
 
-    var filtered = state.requests.filter(function(r){
-      if(sFilter && r.status !== sFilter) return false;
-      if(pFilter && r.priority !== pFilter) return false;
+    var filtered = rows.filter(function(r){
+      if(sFilter && r["Status"] !== sFilter) return false;
+      if(pFilter && r["Priority"] !== pFilter) return false;
       return true;
     });
 
@@ -733,29 +1205,33 @@
       return;
     }
 
+    filtered.sort(function(a,b){ return (b["Serial No"]||"").localeCompare(a["Serial No"]||""); });
+
     var html = '<table><thead><tr>' +
-      '<th>Employee</th><th>Item</th><th>Qty</th><th>Cost (₹)</th><th>Priority</th><th>Submitted</th><th>Status</th><th>Action</th>' +
+      '<th>Serial No</th><th>Employee</th><th>Item</th><th>Client(s)</th><th>Cost</th><th>Priority</th><th>Submitted</th><th>Status</th><th>Action</th>' +
       '</tr></thead><tbody>';
 
     filtered.forEach(function(r){
       var actionCell;
-      if(r.status === "Pending"){
+      if(r["Status"] === "Pending"){
         actionCell = '<div class="action-btns">' +
-          '<button class="action-btn approve" data-id="'+r.id+'" data-decision="Approved">Approve</button>' +
-          '<button class="action-btn reject" data-id="'+r.id+'" data-decision="Rejected">Reject</button>' +
+          '<button class="action-btn approve" data-serial="'+escapeHtml(r["Serial No"])+'" data-decision="Approved">Approve</button>' +
+          '<button class="action-btn reject" data-serial="'+escapeHtml(r["Serial No"])+'" data-decision="Rejected">Reject</button>' +
           '</div>';
       } else {
-        actionCell = '<span class="decided-note">'+(r.comment ? escapeHtml(r.comment) : 'Decision recorded')+'</span>';
+        actionCell = '<span class="decided-note">'+(r["Director Comment"] ? escapeHtml(r["Director Comment"]) : 'Decision recorded')+'</span>';
       }
 
       html += '<tr>' +
-        '<td>'+escapeHtml(r.employeeName)+'</td>' +
-        '<td>'+escapeHtml(r.item)+'</td>' +
-        '<td>'+r.qty+'</td>' +
-        '<td>'+r.cost.toLocaleString('en-IN')+'</td>' +
-        '<td><span class="priority-pill '+r.priority.toLowerCase()+'">'+r.priority+'</span></td>' +
-        '<td>'+r.submittedAt+'</td>' +
-        '<td><span class="status-pill '+r.status.toLowerCase()+'">'+r.status+'</span></td>' +
+        '<td><span class="serial-badge">'+escapeHtml(r["Serial No"])+'</span></td>' +
+        '<td>'+escapeHtml(r["Employee Name"])+'</td>' +
+        '<td>'+escapeHtml(r["Item Summary"])+'</td>' +
+        '<td>'+escapeHtml(r["Client(s)"])+'</td>' +
+        '<td class="marker-cell"><span class="marker-dot '+(r["Marker Color"]==="Green"?"green":"red")+'"></span>' +
+          (r["Total Cost"] ? Number(r["Total Cost"]).toLocaleString('en-IN') : escapeHtml(r["Overall Cost Type"])) + '</td>' +
+        '<td><span class="priority-pill '+String(r["Priority"]||"low").toLowerCase()+'">'+escapeHtml(r["Priority"])+'</span></td>' +
+        '<td>'+escapeHtml(r["Submission Date"])+' '+escapeHtml(r["Submission Time"])+'</td>' +
+        '<td><span class="status-pill '+String(r["Status"]||"pending").toLowerCase()+'">'+escapeHtml(r["Status"])+'</span></td>' +
         '<td>'+actionCell+'</td>' +
         '</tr>';
     });
@@ -763,10 +1239,9 @@
     html += '</tbody></table>';
     wrap.innerHTML = html;
 
-    // attach listeners to action buttons
     wrap.querySelectorAll(".action-btn").forEach(function(btn){
       btn.addEventListener("click", function(){
-        openModal(btn.getAttribute("data-id"), btn.getAttribute("data-decision"));
+        openModal(btn.getAttribute("data-serial"), btn.getAttribute("data-decision"));
       });
     });
   }
@@ -779,9 +1254,9 @@
   var modalConfirmBtn = document.getElementById("modalConfirmBtn");
   var modalCancelBtn = document.getElementById("modalCancelBtn");
 
-  function openModal(requestId, decision){
-    pendingModalAction = { requestId: requestId, decision: decision };
-    modalTitle.textContent = (decision === "Approved" ? "Approve" : "Reject") + " Request " + requestId;
+  function openModal(serial, decision){
+    pendingModalAction = { serial: serial, decision: decision };
+    modalTitle.textContent = (decision === "Approved" ? "Approve" : "Reject") + " Request " + serial;
     modalSub.textContent = "Add an optional comment for the employee.";
     modalComment.value = "";
     modalConfirmBtn.className = "modal-confirm " + (decision === "Approved" ? "approve" : "reject");
@@ -801,13 +1276,23 @@
 
   modalConfirmBtn.addEventListener("click", function(){
     if(!pendingModalAction) return;
-    var req = state.requests.find(function(r){ return r.id === pendingModalAction.requestId; });
-    if(req){
-      req.status = pendingModalAction.decision;
-      req.comment = modalComment.value.trim();
-    }
-    closeModal();
-    renderDirectorView();
+    modalConfirmBtn.disabled = true;
+    apiPost({
+      action: "decision",
+      serial: pendingModalAction.serial,
+      decision: pendingModalAction.decision,
+      comment: modalComment.value.trim(),
+      directorEmail: state.currentUser
+    }).then(function(res){
+      modalConfirmBtn.disabled = false;
+      closeModal();
+      if(res.error){ showToast(res.error, true); return; }
+      renderDirectorView();
+    }).catch(function(){
+      modalConfirmBtn.disabled = false;
+      closeModal();
+      showToast("Network error — could not save decision.", true);
+    });
   });
 
   // ---------- Utility ----------
