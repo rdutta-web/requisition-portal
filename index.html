@@ -442,6 +442,120 @@
     padding:9px 11px;border:1.5px solid var(--border);border-radius:8px;font-size:12.5px;
     font-family:'Inter',sans-serif;background:var(--bg);
   }
+
+  /* ===== Bold greeting ===== */
+  .greeting-text{
+    font-size:20px;font-weight:800;color:var(--navy);margin-bottom:14px;letter-spacing:-0.01em;
+  }
+
+  /* ===== Form banner (letterhead style) ===== */
+  .form-banner{
+    display:flex;align-items:center;gap:16px;
+    background:linear-gradient(135deg, var(--navy) 0%, #1a2f52 100%);
+    border-radius:14px;padding:20px 26px;margin-bottom:22px;
+    position:relative;overflow:hidden;
+  }
+  .form-banner::after{
+    content:"";position:absolute;top:0;right:0;bottom:0;width:5px;background:var(--gold,#c9a44c);
+  }
+  .form-banner .fb-logo{
+    width:52px;height:52px;border-radius:10px;background:rgba(255,255,255,0.12);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;
+  }
+  .form-banner .fb-logo img{width:100%;height:100%;object-fit:contain;}
+  .form-banner .fb-logo .fb-fallback{color:#fff;font-weight:800;font-size:18px;}
+  .form-banner .fb-text h2{color:#fff;font-size:17px;font-weight:700;margin-bottom:3px;}
+  .form-banner .fb-text span{color:#c3cee0;font-size:12px;letter-spacing:0.02em;}
+
+  /* ===== Meta row: date / time / serial ===== */
+  .req-meta-row{
+    display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:14px;margin-bottom:22px;
+  }
+  .req-meta-field label{
+    display:block;font-size:11px;font-weight:700;color:var(--text-muted);
+    text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;
+  }
+  .req-meta-field input[type="date"], .req-meta-field input[type="time"]{
+    width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;
+    font-family:'Inter',sans-serif;font-size:13px;background:var(--bg);
+  }
+  .serial-input-group{
+    display:flex;align-items:stretch;border:1.5px solid var(--border);border-radius:8px;overflow:hidden;background:var(--bg);
+  }
+  .serial-prefix-badge{
+    background:var(--navy);color:#fff;font-family:'JetBrains Mono',monospace;font-size:12.5px;
+    font-weight:700;padding:0 12px;display:flex;align-items:center;white-space:nowrap;
+  }
+  .serial-input-group input{
+    border:none;background:transparent;padding:10px 12px;font-family:'JetBrains Mono',monospace;
+    font-size:13px;flex:1;min-width:0;
+  }
+  .serial-input-group input:focus{outline:none;}
+  @media (max-width:640px){.req-meta-row{grid-template-columns:1fr;}}
+
+  /* ===== Line item cards ===== */
+  .line-cards-wrap{display:flex;flex-direction:column;gap:16px;margin-bottom:16px;}
+  .line-card{
+    background:var(--card);border:1.5px solid var(--border);border-radius:14px;
+    padding:22px;box-shadow:0 1px 3px rgba(20,30,55,0.04);transition:box-shadow .2s ease;
+  }
+  .line-card:hover{box-shadow:0 4px 16px rgba(20,30,55,0.08);}
+  .line-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+  .line-card-num{
+    font-size:11px;font-weight:800;color:var(--navy-lighter);text-transform:uppercase;letter-spacing:0.05em;
+  }
+  .line-grid-3{display:grid;grid-template-columns:1.4fr 0.7fr 1fr;gap:12px;margin-bottom:14px;}
+  @media (max-width:640px){.line-grid-3{grid-template-columns:1fr;}}
+
+  /* ===== Segmented control ===== */
+  .segmented-control{
+    display:flex;background:var(--bg);border:1.5px solid var(--border);border-radius:9px;padding:3px;gap:3px;
+  }
+  .segmented-option{
+    flex:1;background:transparent;border:none;padding:9px 8px;border-radius:7px;
+    font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .18s ease;white-space:nowrap;
+  }
+  .segmented-option.active{background:var(--navy);color:#fff;box-shadow:0 1px 4px rgba(20,30,55,0.25);}
+  .segmented-option:not(.active):hover{background:rgba(20,30,55,0.05);}
+  @media (max-width:640px){.segmented-control{flex-wrap:wrap;} .segmented-option{flex:1 1 45%;}}
+
+  /* ===== Animated reveal blocks & chip prompts ===== */
+  .reveal-block{
+    max-height:0;opacity:0;overflow:hidden;
+    transition:max-height .28s cubic-bezier(.4,0,.2,1), opacity .22s ease, margin .28s ease;
+    margin-top:0;
+  }
+  .reveal-block.show{max-height:300px;opacity:1;margin-top:12px;}
+  .chip-prompt{
+    display:flex;align-items:center;gap:10px;transform:translateY(-4px);
+    transition:max-height .22s cubic-bezier(.4,0,.2,1), opacity .18s ease, transform .18s ease, margin .22s ease;
+  }
+  .chip-prompt.show{transform:translateY(0);}
+  .prompt-label{font-size:12.5px;color:var(--navy);font-weight:600;}
+  .mini-btn{
+    border:1.5px solid var(--border);background:var(--bg);border-radius:20px;padding:6px 16px;
+    font-size:11.5px;font-weight:700;cursor:pointer;transition:all .15s ease;
+  }
+  .mini-btn.yes:hover, .mini-btn.yes.picked{background:var(--success);border-color:var(--success);color:#fff;}
+  .mini-btn.no:hover, .mini-btn.no.picked{background:var(--danger);border-color:var(--danger);color:#fff;}
+
+  .li-rate-value-wrap{margin-top:10px;}
+
+  .add-note-link{
+    background:none;border:none;color:var(--navy-lighter);font-size:12px;font-weight:600;
+    cursor:pointer;padding:2px 0;margin-top:4px;
+  }
+  .add-note-link:hover{text-decoration:underline;}
+
+  .line-total-row{
+    display:flex;align-items:center;justify-content:space-between;margin-top:16px;
+    padding-top:14px;border-top:1px dashed var(--border);
+  }
+  .line-total-row span:first-child{font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.03em;}
+  .line-total-value{
+    font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:800;color:var(--navy);
+  }
+  .line-total-value.pending{color:var(--text-muted);font-weight:600;font-size:13px;}
 </style>
 </head>
 <body>
@@ -450,7 +564,10 @@
 <div id="loginScreen">
   <div class="login-card">
     <div class="login-brand">
-      <div class="logo">ST</div>
+      <div class="logo" style="overflow:hidden;">
+        <img src="logo.png" alt="Skytel" style="width:100%;height:100%;object-fit:contain;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span style="display:none;align-items:center;justify-content:center;width:100%;height:100%;">ST</span>
+      </div>
       <h1>Skytel Purchase Requisition Portal</h1>
       <p>Sign in with your registered Google account</p>
     </div>
@@ -473,7 +590,10 @@
 <div id="appScreen">
   <header class="topbar">
     <div class="topbar-left">
-      <div class="logo">ST</div>
+      <div class="logo" style="overflow:hidden;">
+        <img src="logo.png" alt="Skytel" style="width:100%;height:100%;object-fit:contain;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span style="display:none;align-items:center;justify-content:center;width:100%;height:100%;">ST</span>
+      </div>
       <div class="title-block">
         <h2>Purchase Requisition Portal</h2>
         <span>Skytel Tele Services Pvt. Ltd.</span>
@@ -497,7 +617,7 @@
 
       <!-- LANDING CHOICE -->
       <div id="empLanding">
-        <div id="empGreeting" style="font-size:13px;font-weight:600;color:var(--navy-lighter);margin-bottom:6px;"></div>
+        <div id="empGreeting" class="greeting-text"></div>
         <div class="section-heading">Purchase Requisition</div>
         <div class="section-sub">What would you like to do?</div>
         <div class="choice-row">
@@ -521,60 +641,42 @@
       <!-- NEW REQUISITION FORM -->
       <div id="empNewReq" style="display:none;">
         <span class="back-link" id="backFromNew">&larr; Back</span>
-        <div class="section-heading">New Requisition</div>
-        <div class="section-sub">A serial number will be generated on submit. The Director is notified instantly.</div>
+
+        <div class="form-banner">
+          <div class="fb-logo">
+            <img id="fbLogoImg" src="logo.png" alt="Skytel Tele Services" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="fb-fallback" style="display:none;">ST</span>
+          </div>
+          <div class="fb-text">
+            <h2>Skytel Tele Services Pvt. Ltd.</h2>
+            <span>Purchase Requisition Form</span>
+          </div>
+        </div>
 
         <div class="card">
           <form id="requisitionForm">
-            <div class="form-grid full">
-              <div class="form-group">
-                <label>Item Description</label>
-                <textarea id="itemDescription" placeholder="Overall description of what's being requested" required></textarea>
-              </div>
-            </div>
 
-            <div class="split-toggle-row">
-              <div>
-                <div class="stt-label">Split across multiple clients?</div>
-                <div class="stt-sub">Turn this on if this requisition covers more than one client/item line.</div>
+            <div class="req-meta-row">
+              <div class="req-meta-field">
+                <label>Date</label>
+                <input type="date" id="reqDate">
               </div>
-              <div class="toggle-switch" id="splitToggle"><div class="knob"></div></div>
-            </div>
-
-            <!-- NOT SPLIT: single line -->
-            <div id="singleLineBlock">
-              <div class="form-grid">
-                <div class="form-group">
-                  <label>Client Name</label>
-                  <input type="text" id="singleClient" placeholder="Client name">
-                </div>
-                <div class="form-group">
-                  <label>Quantity</label>
-                  <input type="number" id="singleQty" min="1" value="1">
+              <div class="req-meta-field">
+                <label>Time</label>
+                <input type="time" id="reqTime">
+              </div>
+              <div class="req-meta-field serial-field">
+                <label>Requisition Number</label>
+                <div class="serial-input-group">
+                  <span class="serial-prefix-badge" id="serialPrefixBadge">SKY-PR-</span>
+                  <input type="text" id="serialSuffixInput" placeholder="000001">
                 </div>
               </div>
-              <div class="form-group">
-                <label>Cost Type</label>
-                <select class="cost-type-select" id="singleCostType" style="width:100%;">
-                  <option value="To Be Filled Later">To Be Filled Later</option>
-                  <option value="Range">Range</option>
-                  <option value="Approx">Approx</option>
-                  <option value="Exact">Exact</option>
-                </select>
-                <div id="singleCostValueWrap"></div>
-              </div>
             </div>
 
-            <!-- SPLIT: table -->
-            <div id="splitBlock" style="display:none;">
-              <table class="line-items-table" id="lineItemsTable">
-                <thead>
-                  <tr><th style="width:22%">Item</th><th style="width:10%">Qty</th><th style="width:18%">Client</th><th style="width:18%">Cost Type</th><th>Cost Value</th><th style="width:34px;"></th></tr>
-                </thead>
-                <tbody id="lineItemsBody"></tbody>
-              </table>
-              <button type="button" class="add-line-btn" id="addLineBtn">+ Add Line</button>
-            </div>
+            <div class="line-cards-wrap" id="lineCardsWrap"></div>
+
+            <button type="button" class="add-line-btn" id="addLineBtn">+ Add Line</button>
 
             <div class="client-details-box">
               <div class="cdb-title">Additional Details</div>
@@ -582,14 +684,6 @@
                 <div class="form-group">
                   <label>Sales Manager Name (optional)</label>
                   <input type="text" id="salesManager" placeholder="e.g. Ashish Roy">
-                </div>
-                <div class="form-group">
-                  <label>Priority</label>
-                  <select id="itemPriority">
-                    <option value="Low">Low</option>
-                    <option value="Medium" selected>Medium</option>
-                    <option value="Urgent">Urgent</option>
-                  </select>
                 </div>
               </div>
             </div>
@@ -617,7 +711,7 @@
 
     <!-- DIRECTOR PANEL -->
     <section id="directorPanel" class="panel">
-      <div id="dirGreeting" style="font-size:13px;font-weight:600;color:var(--navy-lighter);margin-bottom:6px;"></div>
+      <div id="dirGreeting" class="greeting-text"></div>
       <div class="section-heading">Director Dashboard</div>
       <div class="section-sub">Review, approve, or reject requisitions submitted by employees.</div>
 
@@ -675,7 +769,8 @@
   // ================================================================
   // BACKEND — Google Apps Script Web App URL
   // ================================================================
-  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzS1DbiuLQuKFiQ8xzy09ntO-woZ-bQjsIzCeaD4MeCnkwsHh-BTFvb2hdfRDWq7S7REQ/exec";
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxufuXPMFwSiDnbnpH2oY4_yLEJkoTopQN9ZSm_Ge0Ww-PV83GirX1zOC8ReACWaCzpqg/exec";
+
   // ---------- Authorized account directory ----------
   var AUTHORIZED_USERS = {
     "rupamislam123@gmail.com":              { role: "employee", initials:"RI", name:"Rupam Islam" },
@@ -848,143 +943,328 @@
   document.getElementById("backFromUpdate").addEventListener("click", function(){ showEmpView("landing"); renderMyRequests(); });
 
   // ================================================================
-  // NEW REQUISITION FORM: split toggle + line items
+  // NEW REQUISITION FORM: line-item cards
   // ================================================================
-  var splitOn = false;
   var lineIdCounter = 0;
+  var RATE_TYPES = ["To Be Given Later", "Range", "Approx", "Exact"];
 
-  var COST_TYPES = ["To Be Filled Later", "Range", "Approx", "Exact"];
+  // COST_TYPES kept for the Update Existing Requisition dropdown (same wording).
+  var COST_TYPES = RATE_TYPES;
 
   function costTypeSelectHtml(cls, extra){
     var opts = COST_TYPES.map(function(ct){ return '<option value="'+ct+'">'+ct+'</option>'; }).join("");
     return '<select class="'+cls+'" '+(extra||"")+'>'+opts+'</select>';
   }
 
+  function pad2(n){ return n < 10 ? "0"+n : ""+n; }
+
   function resetNewReqForm(){
     document.getElementById("requisitionForm").reset();
-    splitOn = false;
-    document.getElementById("splitToggle").classList.remove("on");
-    document.getElementById("singleLineBlock").style.display = "block";
-    document.getElementById("splitBlock").style.display = "none";
-    document.getElementById("lineItemsBody").innerHTML = "";
+    document.getElementById("lineCardsWrap").innerHTML = "";
     lineIdCounter = 0;
-    addLineRow(); // start split table with one row ready
-    renderSingleCostValueFields("To Be Filled Later");
+    addLineCard();
+
+    var now = new Date();
+    document.getElementById("reqDate").value =
+      now.getFullYear() + "-" + pad2(now.getMonth()+1) + "-" + pad2(now.getDate());
+    document.getElementById("reqTime").value =
+      pad2(now.getHours()) + ":" + pad2(now.getMinutes());
+
+    loadSerialPreview();
   }
 
-  document.getElementById("splitToggle").addEventListener("click", function(){
-    splitOn = !splitOn;
-    this.classList.toggle("on", splitOn);
-    document.getElementById("singleLineBlock").style.display = splitOn ? "none" : "block";
-    document.getElementById("splitBlock").style.display = splitOn ? "block" : "none";
-  });
+  function loadSerialPreview(){
+    var badge = document.getElementById("serialPrefixBadge");
+    var input = document.getElementById("serialSuffixInput");
+    input.value = "";
+    apiGet({ action: "getSerialPreview", employeeEmail: state.currentUser }).then(function(res){
+      if(res.error) return;
+      badge.textContent = "SKY-PR-" + (res.prefix || "");
+      input.value = res.padded;
+      input.setAttribute("data-padlength", res.padLength);
+    }).catch(function(){ /* silent — server will still assign a valid serial on submit */ });
+  }
 
-  document.getElementById("singleCostType").addEventListener("change", function(){
-    renderSingleCostValueFields(this.value);
-  });
-
-  function renderSingleCostValueFields(costType){
-    var wrap = document.getElementById("singleCostValueWrap");
-    if(costType === "Range"){
-      wrap.innerHTML = '<div class="cost-value-fields">' +
-        '<input type="number" id="singleCostMin" placeholder="Min (₹)" min="0">' +
-        '<input type="number" id="singleCostMax" placeholder="Max (₹)" min="0"></div>';
-    } else if(costType === "Approx" || costType === "Exact"){
-      wrap.innerHTML = '<div class="cost-value-fields single">' +
-        '<input type="number" id="singleCostValue" placeholder="'+(costType==="Exact"?"Exact":"Approx")+' cost (₹)" min="0"></div>';
+  function revealBlock(el, show){
+    if(show){
+      el.style.display = "block";
+      requestAnimationFrame(function(){ el.classList.add("show"); });
     } else {
-      wrap.innerHTML = "";
+      el.classList.remove("show");
     }
   }
 
-  function addLineRow(){
+  // ---------- Line card creation ----------
+  function addLineCard(){
     lineIdCounter++;
     var id = "ln" + lineIdCounter;
-    var tr = document.createElement("tr");
-    tr.setAttribute("data-line-id", id);
-    tr.innerHTML =
-      '<td><input type="text" class="li-item" placeholder="Item"></td>' +
-      '<td><input type="number" class="li-qty" min="1" value="1"></td>' +
-      '<td><input type="text" class="li-client" placeholder="Client"></td>' +
-      '<td>'+costTypeSelectHtml("li-costtype")+'</td>' +
-      '<td class="li-cost-wrap"></td>' +
-      '<td><button type="button" class="remove-line-btn" title="Remove">&times;</button></td>';
-    document.getElementById("lineItemsBody").appendChild(tr);
+    var card = document.createElement("div");
+    card.className = "line-card";
+    card.setAttribute("data-line-id", id);
+    card.innerHTML =
+      '<div class="line-card-top">' +
+        '<span class="line-card-num">Line '+lineIdCounter+'</span>' +
+        '<button type="button" class="remove-line-btn" title="Remove line">&times;</button>' +
+      '</div>' +
 
-    var costTypeSel = tr.querySelector(".li-costtype");
-    renderLineCostValue(tr, "To Be Filled Later");
-    costTypeSel.addEventListener("change", function(){
-      renderLineCostValue(tr, this.value);
+      '<div class="form-group">' +
+        '<label>Product Name *</label>' +
+        '<input type="text" class="li-item" placeholder="e.g. Crimping Tool">' +
+      '</div>' +
+
+      '<div class="reveal-block chip-prompt" data-role="desc-prompt">' +
+        '<span class="prompt-label">Add a description for this item?</span>' +
+        '<button type="button" class="mini-btn yes" data-answer="yes">Yes</button>' +
+        '<button type="button" class="mini-btn no" data-answer="no">No</button>' +
+      '</div>' +
+
+      '<div class="reveal-block" data-role="desc-field">' +
+        '<label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;">Description</label>' +
+        '<textarea class="li-description" placeholder="Optional details about this item" style="width:100%;"></textarea>' +
+      '</div>' +
+
+      '<div class="line-grid-3">' +
+        '<div class="form-group">' +
+          '<label>Client *</label>' +
+          '<input type="text" class="li-client" placeholder="Client name">' +
+        '</div>' +
+        '<div class="form-group">' +
+          '<label>Quantity *</label>' +
+          '<input type="number" class="li-qty" min="1" value="1">' +
+        '</div>' +
+        '<div class="form-group">' +
+          '<label>Priority</label>' +
+          '<select class="li-priority">' +
+            '<option value="Low">Low</option>' +
+            '<option value="Medium" selected>Medium</option>' +
+            '<option value="Urgent">Urgent</option>' +
+          '</select>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="form-group">' +
+        '<label>Rate Type</label>' +
+        '<div class="segmented-control li-ratetype-group">' +
+          RATE_TYPES.map(function(rt){
+            return '<button type="button" class="segmented-option'+(rt==="To Be Given Later"?" active":"")+'" data-value="'+rt+'">'+rt+'</button>';
+          }).join("") +
+        '</div>' +
+      '</div>' +
+
+      '<div class="li-rate-value-wrap"></div>' +
+
+      '<div class="reveal-block chip-prompt" data-role="gst-prompt">' +
+        '<span class="prompt-label">GST applicable?</span>' +
+        '<button type="button" class="mini-btn yes" data-answer="yes">Yes</button>' +
+        '<button type="button" class="mini-btn no" data-answer="no">No</button>' +
+      '</div>' +
+
+      '<div class="reveal-block" data-role="gst-field">' +
+        '<div class="form-grid">' +
+          '<div class="form-group">' +
+            '<label>GST %</label>' +
+            '<input type="number" class="li-gst-percent" min="0" max="100" placeholder="e.g. 18">' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<label>Rate after GST</label>' +
+            '<input type="text" class="li-rate-after-gst" readonly style="background:var(--bg);">' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+
+      '<button type="button" class="add-note-link" data-role="note-toggle">+ Add note</button>' +
+      '<div class="reveal-block" data-role="note-field">' +
+        '<input type="text" class="li-note" placeholder="Optional note" style="width:100%;">' +
+      '</div>' +
+
+      '<div class="line-total-row">' +
+        '<span>Total</span>' +
+        '<span class="line-total-value pending">&mdash;</span>' +
+      '</div>';
+
+    document.getElementById("lineCardsWrap").appendChild(card);
+    wireLineCard(card);
+  }
+
+  function wireLineCard(card){
+    var itemInput = card.querySelector(".li-item");
+    var descPrompt = card.querySelector('[data-role="desc-prompt"]');
+    var descField = card.querySelector('[data-role="desc-field"]');
+    var descAnswered = false;
+
+    itemInput.addEventListener("blur", function(){
+      if(itemInput.value.trim() && !descAnswered){
+        revealBlock(descPrompt, true);
+      }
     });
-    tr.querySelector(".remove-line-btn").addEventListener("click", function(){
-      if(document.getElementById("lineItemsBody").children.length > 1){
-        tr.remove();
+    descPrompt.querySelectorAll(".mini-btn").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        descAnswered = true;
+        descPrompt.querySelectorAll(".mini-btn").forEach(function(b){ b.classList.remove("picked"); });
+        btn.classList.add("picked");
+        revealBlock(descPrompt, false);
+        revealBlock(descField, btn.getAttribute("data-answer") === "yes");
+      });
+    });
+
+    // Rate type segmented control
+    var rateGroup = card.querySelector(".li-ratetype-group");
+    var rateValueWrap = card.querySelector(".li-rate-value-wrap");
+    rateGroup.querySelectorAll(".segmented-option").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        rateGroup.querySelectorAll(".segmented-option").forEach(function(b){ b.classList.remove("active"); });
+        btn.classList.add("active");
+        renderRateValueFields(card, rateValueWrap, btn.getAttribute("data-value"));
+        computeLineTotal(card);
+      });
+    });
+    renderRateValueFields(card, rateValueWrap, "To Be Given Later");
+
+    // GST prompt
+    var gstPrompt = card.querySelector('[data-role="gst-prompt"]');
+    var gstField = card.querySelector('[data-role="gst-field"]');
+    gstPrompt.querySelectorAll(".mini-btn").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        gstPrompt.querySelectorAll(".mini-btn").forEach(function(b){ b.classList.remove("picked"); });
+        btn.classList.add("picked");
+        card.setAttribute("data-gst-applicable", btn.getAttribute("data-answer"));
+        revealBlock(gstPrompt, false);
+        revealBlock(gstField, btn.getAttribute("data-answer") === "yes");
+        computeLineTotal(card);
+      });
+    });
+
+    // Note toggle
+    var noteToggle = card.querySelector('[data-role="note-toggle"]');
+    var noteField = card.querySelector('[data-role="note-field"]');
+    var noteOpen = false;
+    noteToggle.addEventListener("click", function(){
+      noteOpen = !noteOpen;
+      revealBlock(noteField, noteOpen);
+      noteToggle.textContent = noteOpen ? "\u2212 Remove note" : "+ Add note";
+    });
+
+    // Live total recompute triggers
+    card.querySelector(".li-qty").addEventListener("input", function(){ computeLineTotal(card); });
+    card.addEventListener("input", function(e){
+      if(e.target.classList.contains("li-gst-percent")){ computeLineTotal(card); }
+    });
+
+    // Remove line
+    card.querySelector(".remove-line-btn").addEventListener("click", function(){
+      var wrap = document.getElementById("lineCardsWrap");
+      if(wrap.children.length > 1){
+        card.remove();
       } else {
         showToast("At least one line is required.", true);
       }
     });
   }
 
-  function renderLineCostValue(tr, costType){
-    var wrap = tr.querySelector(".li-cost-wrap");
-    if(costType === "Range"){
-      wrap.innerHTML = '<div style="display:flex;gap:4px;">' +
-        '<input type="number" class="li-cost-min" placeholder="Min" min="0">' +
-        '<input type="number" class="li-cost-max" placeholder="Max" min="0"></div>';
-    } else if(costType === "Approx" || costType === "Exact"){
-      wrap.innerHTML = '<input type="number" class="li-cost-value" placeholder="'+(costType==="Exact"?"Exact":"Approx")+'" min="0">';
+  function renderRateValueFields(card, wrap, rateType){
+    if(rateType === "Range"){
+      wrap.innerHTML = '<div class="cost-value-fields">' +
+        '<input type="number" class="li-cost-min" placeholder="Min (₹)" min="0">' +
+        '<input type="number" class="li-cost-max" placeholder="Max (₹)" min="0"></div>';
+      wrap.querySelectorAll("input").forEach(function(inp){
+        inp.addEventListener("input", function(){ computeLineTotal(card); });
+      });
+      // Range never carries GST — hide any open GST UI
+      revealBlock(card.querySelector('[data-role="gst-prompt"]'), false);
+      revealBlock(card.querySelector('[data-role="gst-field"]'), false);
+    } else if(rateType === "Approx" || rateType === "Exact"){
+      wrap.innerHTML = '<input type="number" class="li-cost-value" placeholder="'+(rateType==="Exact"?"Exact":"Approx")+' rate (₹)" min="0" style="width:100%;">';
+      var valInput = wrap.querySelector(".li-cost-value");
+      var gstAnswered = false;
+      valInput.addEventListener("blur", function(){
+        if(valInput.value && !gstAnswered && card.getAttribute("data-gst-applicable") == null){
+          revealBlock(card.querySelector('[data-role="gst-prompt"]'), true);
+        }
+      });
+      valInput.addEventListener("input", function(){ computeLineTotal(card); });
     } else {
       wrap.innerHTML = "";
+      revealBlock(card.querySelector('[data-role="gst-prompt"]'), false);
+      revealBlock(card.querySelector('[data-role="gst-field"]'), false);
     }
+    computeLineTotal(card);
   }
 
-  document.getElementById("addLineBtn").addEventListener("click", addLineRow);
+  function computeLineTotal(card){
+    var rateType = card.querySelector(".segmented-option.active").getAttribute("data-value");
+    var totalEl = card.querySelector(".line-total-value");
+    var gstAfterEl = card.querySelector(".li-rate-after-gst");
+
+    if(rateType !== "Approx" && rateType !== "Exact"){
+      totalEl.textContent = "\u2014";
+      totalEl.className = "line-total-value pending";
+      if(gstAfterEl) gstAfterEl.value = "";
+      return;
+    }
+
+    var valInput = card.querySelector(".li-cost-value");
+    var rate = valInput ? parseFloat(valInput.value) || 0 : 0;
+    var qty = parseFloat(card.querySelector(".li-qty").value) || 0;
+    var gstApplicable = card.getAttribute("data-gst-applicable") === "yes";
+    var rateAfterGst = rate;
+
+    if(gstApplicable){
+      var gstPct = parseFloat((card.querySelector(".li-gst-percent") || {}).value) || 0;
+      rateAfterGst = rate + (rate * gstPct / 100);
+      if(gstAfterEl) gstAfterEl.value = rateAfterGst ? "₹" + rateAfterGst.toFixed(2) : "";
+    } else {
+      if(gstAfterEl) gstAfterEl.value = "";
+    }
+
+    if(!rate){
+      totalEl.textContent = "\u2014";
+      totalEl.className = "line-total-value pending";
+      return;
+    }
+
+    var total = qty * rateAfterGst;
+    totalEl.textContent = "₹" + total.toLocaleString("en-IN", {maximumFractionDigits:2});
+    totalEl.className = "line-total-value";
+  }
+
+  document.getElementById("addLineBtn").addEventListener("click", addLineCard);
 
   function collectLineItems(){
-    if(!splitOn){
-      var costType = document.getElementById("singleCostType").value;
+    var cards = Array.prototype.slice.call(document.getElementById("lineCardsWrap").children);
+    return cards.map(function(card){
+      var rateType = card.querySelector(".segmented-option.active").getAttribute("data-value");
       var li = {
-        item: document.getElementById("itemDescription").value.trim(),
-        qty: parseInt(document.getElementById("singleQty").value, 10) || 1,
-        client: document.getElementById("singleClient").value.trim(),
-        costType: costType,
-        costValue: "", costMin: "", costMax: ""
+        item: card.querySelector(".li-item").value.trim(),
+        description: card.querySelector(".li-description").value.trim(),
+        client: card.querySelector(".li-client").value.trim(),
+        qty: parseInt(card.querySelector(".li-qty").value, 10) || 1,
+        priority: card.querySelector(".li-priority").value,
+        costType: rateType,
+        costValue: "", costMin: "", costMax: "",
+        gstApplicable: card.getAttribute("data-gst-applicable") === "yes",
+        gstPercent: "",
+        note: card.querySelector(".li-note").value.trim()
       };
-      if(costType === "Range"){
-        li.costMin = document.getElementById("singleCostMin") ? document.getElementById("singleCostMin").value : "";
-        li.costMax = document.getElementById("singleCostMax") ? document.getElementById("singleCostMax").value : "";
-      } else if(costType === "Approx" || costType === "Exact"){
-        li.costValue = document.getElementById("singleCostValue") ? document.getElementById("singleCostValue").value : "";
-      }
-      return [li];
-    } else {
-      var rows = Array.prototype.slice.call(document.getElementById("lineItemsBody").children);
-      return rows.map(function(tr){
-        var costType = tr.querySelector(".li-costtype").value;
-        var li = {
-          item: tr.querySelector(".li-item").value.trim(),
-          qty: parseInt(tr.querySelector(".li-qty").value, 10) || 1,
-          client: tr.querySelector(".li-client").value.trim(),
-          costType: costType,
-          costValue: "", costMin: "", costMax: ""
-        };
-        if(costType === "Range"){
-          var minEl = tr.querySelector(".li-cost-min"), maxEl = tr.querySelector(".li-cost-max");
-          li.costMin = minEl ? minEl.value : "";
-          li.costMax = maxEl ? maxEl.value : "";
-        } else if(costType === "Approx" || costType === "Exact"){
-          var valEl = tr.querySelector(".li-cost-value");
-          li.costValue = valEl ? valEl.value : "";
+      if(rateType === "Range"){
+        var minEl = card.querySelector(".li-cost-min"), maxEl = card.querySelector(".li-cost-max");
+        li.costMin = minEl ? minEl.value : "";
+        li.costMax = maxEl ? maxEl.value : "";
+      } else if(rateType === "Approx" || rateType === "Exact"){
+        var valEl = card.querySelector(".li-cost-value");
+        li.costValue = valEl ? valEl.value : "";
+        if(li.gstApplicable){
+          var gstEl = card.querySelector(".li-gst-percent");
+          li.gstPercent = gstEl ? gstEl.value : "";
         }
-        return li;
-      });
-    }
+      }
+      return li;
+    });
   }
 
   function validateLineItems(items){
     for(var i=0;i<items.length;i++){
       var li = items[i];
-      if(!li.item){ return "Item name is required on every line."; }
+      if(!li.item){ return "Product name is required on every line."; }
       if(!li.client){ return "Client name is required on every line."; }
       if(!li.qty || li.qty < 1){ return "Quantity is required on every line."; }
     }
@@ -993,8 +1273,6 @@
 
   document.getElementById("requisitionForm").addEventListener("submit", function(e){
     e.preventDefault();
-    var itemDescription = document.getElementById("itemDescription").value.trim();
-    if(!itemDescription){ showToast("Item description is required.", true); return; }
 
     var lineItems = collectLineItems();
     var err = validateLineItems(lineItems);
@@ -1005,10 +1283,10 @@
       action: "newSubmission",
       employeeName: u.name,
       employeeEmail: state.currentUser,
-      itemDescription: itemDescription,
-      split: splitOn,
+      date: document.getElementById("reqDate").value,
+      time: document.getElementById("reqTime").value,
+      serialNumberOverride: document.getElementById("serialSuffixInput").value.trim(),
       salesManager: document.getElementById("salesManager").value.trim(),
-      priority: document.getElementById("itemPriority").value,
       lineItems: lineItems
     };
 
