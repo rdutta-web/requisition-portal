@@ -490,7 +490,9 @@
     border:none;background:transparent;padding:10px 12px;font-family:'JetBrains Mono',monospace;
     font-size:13px;flex:1;min-width:0;
   }
-  .serial-input-group input:focus{outline:none;}
+  .serial-input-group input[readonly]{
+    background:var(--bg);color:var(--text-muted);cursor:default;user-select:none;
+  }
   @media (max-width:640px){.req-meta-row{grid-template-columns:1fr;}}
 
   /* ===== Line item cards ===== */
@@ -556,6 +558,109 @@
     font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:800;color:var(--navy);
   }
   .line-total-value.pending{color:var(--text-muted);font-weight:600;font-size:13px;}
+
+  /* ===== My Requests — expandable card list ===== */
+  .req-card-list{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
+  .req-card{
+    background:var(--card);border:1.5px solid var(--border);border-radius:12px;
+    overflow:hidden;transition:box-shadow .18s ease;
+  }
+  .req-card:hover{box-shadow:0 4px 18px rgba(20,30,55,0.09);border-color:#c5cedf;}
+  .req-card-header{
+    display:grid;grid-template-columns:140px 1fr 120px 110px 110px;align-items:center;
+    gap:14px;padding:14px 18px;cursor:pointer;user-select:none;
+  }
+  @media(max-width:680px){.req-card-header{grid-template-columns:1fr 1fr;row-gap:8px;}}
+  .req-card-serial{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--navy);}
+  .req-card-item{font-size:13px;font-weight:600;color:var(--text);}
+  .req-card-client{font-size:12px;color:var(--text-muted);}
+  .req-card-chevron{
+    margin-left:auto;font-size:12px;color:var(--text-muted);
+    transition:transform .22s ease;flex-shrink:0;
+  }
+  .req-card.open .req-card-chevron{transform:rotate(180deg);}
+
+  .req-card-body{
+    max-height:0;overflow:hidden;
+    transition:max-height .3s cubic-bezier(.4,0,.2,1);
+    border-top:0px solid var(--border);
+  }
+  .req-card.open .req-card-body{
+    max-height:2000px;
+    border-top:1px solid var(--border);
+  }
+  .req-card-body-inner{padding:18px;}
+  .req-detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:18px;}
+  @media(max-width:640px){.req-detail-grid{grid-template-columns:1fr 1fr;}}
+  .req-detail-field label{
+    display:block;font-size:10.5px;font-weight:700;color:var(--text-muted);
+    text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px;
+  }
+  .req-detail-field .rdv{font-size:13px;color:var(--text);font-weight:500;}
+
+  .req-line-items-section{margin-bottom:16px;}
+  .req-line-items-section h4{font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;}
+  .req-line-mini-card{
+    background:var(--bg);border:1px solid var(--border);border-radius:9px;
+    padding:12px 14px;margin-bottom:8px;
+  }
+  .req-line-mini-card .rlm-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+  .req-line-mini-card .rlm-item{font-size:13px;font-weight:700;color:var(--navy);}
+  .req-line-mini-card .rlm-meta{font-size:11.5px;color:var(--text-muted);}
+
+  .req-card-actions{display:flex;gap:10px;padding-top:14px;border-top:1px dashed var(--border);}
+  .edit-req-btn{
+    background:var(--navy);color:#fff;border:none;padding:9px 18px;border-radius:8px;
+    font-size:12.5px;font-weight:600;cursor:pointer;
+  }
+  .edit-req-btn:hover{background:var(--navy-lighter);}
+
+  /* ===== Requisition Edit View ===== */
+  #empEditReq{display:none;}
+  .edit-section-title{
+    font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;
+    letter-spacing:0.04em;margin-bottom:12px;margin-top:22px;padding-bottom:6px;
+    border-bottom:1px solid var(--border);
+  }
+  .edit-field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+  .edit-field-row.full{grid-template-columns:1fr;}
+  .edit-field-row .form-group{margin-bottom:0;}
+
+  /* ===== Shareable link ===== */
+  .share-link-row{
+    display:flex;align-items:center;gap:8px;
+    background:var(--bg);border:1.5px solid var(--border);border-radius:9px;
+    padding:10px 14px;margin-top:10px;
+  }
+  .share-link-row .sl-url{
+    flex:1;font-family:'JetBrains Mono',monospace;font-size:11.5px;
+    color:var(--navy-lighter);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .copy-link-btn{
+    background:var(--navy);color:#fff;border:none;border-radius:7px;
+    padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;
+  }
+  .copy-link-btn:hover{background:var(--navy-lighter);}
+  .copy-link-btn.copied{background:var(--success);}
+
+  /* ===== Shared / read-only view panel ===== */
+  #sharedViewPanel{display:none;}
+  .shared-view-banner{
+    background:linear-gradient(135deg,var(--navy) 0%,#1a2f52 100%);
+    border-radius:14px;padding:20px 26px;margin-bottom:22px;
+    display:flex;align-items:center;gap:16px;position:relative;overflow:hidden;
+  }
+  .shared-view-banner::after{content:"";position:absolute;top:0;right:0;bottom:0;width:5px;background:var(--gold);}
+  .shared-view-banner .fb-logo{width:52px;height:52px;border-radius:10px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+  .shared-view-banner .fb-logo img{width:100%;height:100%;object-fit:contain;}
+  .shared-view-banner .fb-fallback{color:#fff;font-weight:800;font-size:18px;}
+  .shared-view-banner .fb-text h2{color:#fff;font-size:17px;font-weight:700;margin-bottom:3px;}
+  .shared-view-banner .fb-text span{color:#c3cee0;font-size:12px;letter-spacing:0.02em;}
+  .ro-field-group{margin-bottom:16px;}
+  .ro-field-group label{display:block;font-size:10.5px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:5px;}
+  .ro-field-group .ro-val{font-size:13.5px;color:var(--text);font-weight:500;padding:10px 12px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;}
+  .ro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px;}
+  @media(max-width:640px){.ro-grid{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
@@ -669,7 +774,7 @@
                 <label>Requisition Number</label>
                 <div class="serial-input-group">
                   <span class="serial-prefix-badge" id="serialPrefixBadge">SKY-PR-</span>
-                  <input type="text" id="serialSuffixInput" placeholder="000001">
+                  <input type="text" id="serialSuffixInput" placeholder="loading…" readonly style="background:var(--bg);color:var(--text-muted);cursor:default;">
                 </div>
               </div>
             </div>
@@ -693,16 +798,25 @@
         </div>
       </div>
 
+      <!-- EDIT REQUISITION (from My Requests) -->
+      <div id="empEditReq" style="display:none;">
+        <span class="back-link" id="backFromEdit">&larr; Back to My Requests</span>
+        <div id="editReqContent"></div>
+      </div>
+
       <!-- UPDATE EXISTING REQUISITION -->
       <div id="empUpdateReq" style="display:none;">
         <span class="back-link" id="backFromUpdate">&larr; Back</span>
         <div class="section-heading">Update Existing Requisition</div>
-        <div class="section-sub">Enter the serial number to look it up and update cost details.</div>
+        <div class="section-sub">Select a requisition with incomplete cost details to update.</div>
 
         <div class="lookup-box">
-          <input type="text" id="lookupSerialInput" placeholder="e.g. SKY-PR-000001">
-          <button id="lookupSerialBtn">Look Up</button>
+          <select id="incompleteReqSelect" style="flex:1;padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:13.5px;background:var(--bg);appearance:none;background-image:url(&quot;data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b7688' stroke-width='2.5'><path d='M6 9l6 6 6-6'/></svg>&quot;);background-repeat:no-repeat;background-position:right 14px center;">
+            <option value="">— Select a requisition —</option>
+          </select>
+          <button id="loadIncompleteBtn">Load</button>
         </div>
+        <div id="incompleteLoadNote" style="font-size:12px;color:var(--text-muted);margin-top:-10px;margin-bottom:16px;"></div>
 
         <div id="updateResultWrap"></div>
       </div>
@@ -734,6 +848,12 @@
 
       <div id="directorTableWrap"></div>
     </section>
+    <!-- SHARED VIEW PANEL (read-only, accessible to any listed user via link) -->
+    <section id="sharedViewPanel">
+      <span class="back-link" id="backFromShared">&larr; Back</span>
+      <div id="sharedViewContent"></div>
+    </section>
+
   </main>
 </div>
 
@@ -777,7 +897,7 @@
     "rajarshidutta123@gmail.com":           { role: "employee", initials:"RD", name:"Rajarshi Dutta" },
     "s.das@skytelservices.com":             { role: "employee", initials:"SD", name:"Santu Das" },
     "marketing.kol@skytelteleservices.com": { role: "employee", initials:"IS", name:"Ishita Saha" },
-    "js@skytelteleservices.com":            { role: "director", initials:"JS", name:"" }
+    "r.dutta@skytelteleservices.com":       { role: "director", initials:"RD", name:"" }
   };
 
   var state = {
@@ -880,6 +1000,15 @@
     document.getElementById("employeePanel").classList.remove("active");
     document.getElementById("directorPanel").classList.remove("active");
 
+    // Check if the URL contains a shared requisition link: #view/SKY-PR-XXXXXX/token
+    var hash = window.location.hash;
+    var shared = parseShareHash(hash);
+
+    if(shared && shared.serial){
+      showSharedView(shared.serial, shared.token);
+      return;
+    }
+
     if(u.role === "director"){
       document.getElementById("dirGreeting").textContent = "Hi! Dear Sir";
       document.getElementById("directorPanel").classList.add("active");
@@ -930,10 +1059,11 @@
     document.getElementById("empLanding").style.display = view === "landing" ? "block" : "none";
     document.getElementById("empNewReq").style.display = view === "new" ? "block" : "none";
     document.getElementById("empUpdateReq").style.display = view === "update" ? "block" : "none";
+    document.getElementById("empEditReq").style.display = view === "edit" ? "block" : "none";
     if(view === "new") resetNewReqForm();
     if(view === "update"){
-      document.getElementById("lookupSerialInput").value = "";
       document.getElementById("updateResultWrap").innerHTML = "";
+      loadIncompleteReqsDropdown();
     }
   }
 
@@ -941,6 +1071,7 @@
   document.getElementById("choiceUpdate").addEventListener("click", function(){ showEmpView("update"); });
   document.getElementById("backFromNew").addEventListener("click", function(){ showEmpView("landing"); renderMyRequests(); });
   document.getElementById("backFromUpdate").addEventListener("click", function(){ showEmpView("landing"); renderMyRequests(); });
+  document.getElementById("backFromEdit").addEventListener("click", function(){ showEmpView("landing"); renderMyRequests(); });
 
   // ================================================================
   // NEW REQUISITION FORM: line-item cards
@@ -1019,8 +1150,10 @@
       '</div>' +
 
       '<div class="reveal-block" data-role="desc-field">' +
-        '<label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;">Description</label>' +
-        '<textarea class="li-description" placeholder="Optional details about this item" style="width:100%;"></textarea>' +
+        '<div class="form-group" style="margin-bottom:0;">' +
+          '<label>Description</label>' +
+          '<textarea class="li-description" placeholder="Optional details about this item" style="min-height:80px;resize:vertical;"></textarea>' +
+        '</div>' +
       '</div>' +
 
       '<div class="line-grid-3">' +
@@ -1285,7 +1418,7 @@
       employeeEmail: state.currentUser,
       date: document.getElementById("reqDate").value,
       time: document.getElementById("reqTime").value,
-      serialNumberOverride: document.getElementById("serialSuffixInput").value.trim(),
+      serialNumberOverride: null,  // serial is auto-assigned server-side
       salesManager: document.getElementById("salesManager").value.trim(),
       lineItems: lineItems
     };
@@ -1296,6 +1429,10 @@
     apiPost(payload).then(function(res){
       btn.disabled = false; btn.textContent = "Submit Requisition";
       if(res.error){ showToast(res.error, true); return; }
+      // Persist the share token locally so we can build the share link later.
+      if(res.shareToken){
+        try{ localStorage.setItem("skt_" + res.serial, res.shareToken); }catch(e){}
+      }
       showToast("Requisition " + res.serial + " submitted successfully.");
       showEmpView("landing");
       renderMyRequests();
@@ -1306,7 +1443,7 @@
   });
 
   // ================================================================
-  // MY REQUESTS (employee's own dashboard rows)
+  // MY REQUESTS (employee's own dashboard rows) — expandable cards
   // ================================================================
   function renderMyRequests(){
     var wrap = document.getElementById("myRequestsTableWrap");
@@ -1315,38 +1452,346 @@
       if(rows.error){ wrap.innerHTML = '<div class="card empty-state">'+escapeHtml(rows.error)+'</div>'; return; }
       if(!rows.length){ wrap.innerHTML = '<div class="card empty-state">No requests submitted yet.</div>'; return; }
 
-      var html = '<table><thead><tr>' +
-        '<th>Serial No</th><th>Item</th><th>Client(s)</th><th>Cost Type</th><th>Total Cost (₹)</th>' +
-        '<th>Status</th><th>Submitted</th><th>Director Comment</th>' +
-        '</tr></thead><tbody>';
       rows.sort(function(a,b){ return (b["Serial No"]||"").localeCompare(a["Serial No"]||""); });
+
+      var list = document.createElement("div");
+      list.className = "req-card-list";
+
       rows.forEach(function(r){
-        html += '<tr>' +
-          '<td><span class="serial-badge">'+escapeHtml(r["Serial No"])+'</span></td>' +
-          '<td>'+escapeHtml(r["Item Summary"])+'</td>' +
-          '<td>'+escapeHtml(r["Client(s)"])+'</td>' +
-          '<td class="marker-cell"><span class="marker-dot '+(r["Marker Color"]==="Green"?"green":"red")+'"></span>'+escapeHtml(r["Overall Cost Type"])+'</td>' +
-          '<td>'+(r["Total Cost"] ? Number(r["Total Cost"]).toLocaleString('en-IN') : '—')+'</td>' +
-          '<td><span class="status-pill '+String(r["Status"]||"pending").toLowerCase()+'">'+escapeHtml(r["Status"])+'</span></td>' +
-          '<td>'+escapeHtml(r["Submission Date"])+' '+escapeHtml(r["Submission Time"])+'</td>' +
-          '<td>'+(r["Director Comment"] ? '<span class="decided-note">'+escapeHtml(r["Director Comment"])+'</span>' : '—')+'</td>' +
-          '</tr>';
+        var lineItems = [];
+        try{ lineItems = JSON.parse(r["Line Items Detail"] || "[]"); }catch(e){ lineItems = []; }
+
+        var statusCls = String(r["Status"]||"pending").toLowerCase();
+        var markerCls = r["Marker Color"]==="Green" ? "green" : "red";
+
+        // Build line item mini-cards for the expanded body
+        var lineHtml = lineItems.map(function(li){
+          var costStr = li.costType || "—";
+          if(li.costType==="Exact"||li.costType==="Approx") costStr += li.costValue ? " — ₹"+Number(li.costValue).toLocaleString("en-IN") : "";
+          if(li.costType==="Range") costStr += (li.costMin||li.costMax) ? " ₹"+(li.costMin||"?")+" – ₹"+(li.costMax||"?") : "";
+          return '<div class="req-line-mini-card">' +
+            '<div class="rlm-top"><span class="rlm-item">'+escapeHtml(li.item)+'</span>' +
+            '<span class="rlm-meta">Qty: '+escapeHtml(String(li.qty||1))+'</span></div>' +
+            '<div class="rlm-meta">Client: '+escapeHtml(li.client||"—")+'  ·  Rate: '+escapeHtml(costStr)+'  ·  Priority: '+escapeHtml(li.priority||"—")+'</div>' +
+            (li.description ? '<div class="rlm-meta" style="margin-top:4px;">'+escapeHtml(li.description)+'</div>' : '') +
+            (li.note ? '<div class="rlm-meta" style="margin-top:4px;font-style:italic;">Note: '+escapeHtml(li.note)+'</div>' : '') +
+          '</div>';
+        }).join("");
+
+        var card = document.createElement("div");
+        card.className = "req-card";
+        card.innerHTML =
+          '<div class="req-card-header">' +
+            '<div>' +
+              '<div class="req-card-serial">'+escapeHtml(r["Serial No"])+'</div>' +
+              '<div style="margin-top:3px;"><span class="status-pill '+statusCls+'">'+escapeHtml(r["Status"])+'</span></div>' +
+            '</div>' +
+            '<div>' +
+              '<div class="req-card-item">'+escapeHtml(r["Item Summary"])+'</div>' +
+              '<div class="req-card-client">'+escapeHtml(r["Client(s)"] || "")+'</div>' +
+            '</div>' +
+            '<div class="marker-cell"><span class="marker-dot '+markerCls+'"></span>'+escapeHtml(r["Overall Cost Type"])+'</div>' +
+            '<div style="font-size:13px;font-weight:600;">'+(r["Total Cost"] ? '₹'+Number(r["Total Cost"]).toLocaleString("en-IN") : '—')+'</div>' +
+            '<div style="font-size:11.5px;color:var(--text-muted);">'+escapeHtml(String(r["Submission Date"]||"").slice(0,10))+'</div>' +
+            '<span class="req-card-chevron">▼</span>' +
+          '</div>' +
+          '<div class="req-card-body">' +
+            '<div class="req-card-body-inner">' +
+              '<div class="req-detail-grid">' +
+                '<div class="req-detail-field"><label>Submission Date</label><div class="rdv">'+escapeHtml(String(r["Submission Date"]||"").slice(0,10))+'</div></div>' +
+                '<div class="req-detail-field"><label>Submission Time</label><div class="rdv">'+escapeHtml(String(r["Submission Time"]||"").slice(0,5))+'</div></div>' +
+                '<div class="req-detail-field"><label>Sales Manager</label><div class="rdv">'+escapeHtml(r["Sales Manager"]||"—")+'</div></div>' +
+                '<div class="req-detail-field"><label>Priority</label><div class="rdv">'+escapeHtml(r["Priority"]||"—")+'</div></div>' +
+                '<div class="req-detail-field"><label>Cost Status</label><div class="rdv marker-cell"><span class="marker-dot '+markerCls+'"></span>'+escapeHtml(r["Overall Cost Type"])+'</div></div>' +
+                '<div class="req-detail-field"><label>Director Comment</label><div class="rdv">'+(r["Director Comment"] ? escapeHtml(r["Director Comment"]) : '—')+'</div></div>' +
+              '</div>' +
+              (lineItems.length ? '<div class="req-line-items-section"><h4>Line Items</h4>'+lineHtml+'</div>' : '') +
+              '<div class="req-card-actions">' +
+                '<button class="edit-req-btn" data-serial="'+escapeHtml(r["Serial No"])+'">✏️ Edit this Requisition</button>' +
+                '<button class="copy-link-btn card-copy-link" data-serial="'+escapeHtml(r["Serial No"])+'" style="font-size:11.5px;padding:7px 14px;">🔗 Copy Link</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+
+        // Toggle expand on header click
+        var header = card.querySelector(".req-card-header");
+        header.addEventListener("click", function(){
+          var isOpen = card.classList.contains("open");
+          // close all others
+          list.querySelectorAll(".req-card.open").forEach(function(c){ c.classList.remove("open"); });
+          if(!isOpen) card.classList.add("open");
+        });
+
+        // Edit button
+        card.querySelector(".edit-req-btn").addEventListener("click", function(e){
+          e.stopPropagation();
+          openEditView(r["Serial No"]);
+        });
+
+        // Copy link button
+        card.querySelector(".card-copy-link").addEventListener("click", function(e){
+          e.stopPropagation();
+          var btn = this;
+          var url = buildShareLink(r["Serial No"]);
+          navigator.clipboard.writeText(url).then(function(){
+            btn.textContent = "✓ Copied!"; btn.classList.add("copied");
+            setTimeout(function(){ btn.textContent = "🔗 Copy Link"; btn.classList.remove("copied"); }, 2000);
+          }).catch(function(){
+            var ta = document.createElement("textarea"); ta.value = url;
+            ta.style.position="fixed"; ta.style.opacity="0";
+            document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+            btn.textContent = "✓ Copied!"; btn.classList.add("copied");
+            setTimeout(function(){ btn.textContent = "🔗 Copy Link"; btn.classList.remove("copied"); }, 2000);
+          });
+        });
+
+        list.appendChild(card);
       });
-      html += '</tbody></table>';
-      wrap.innerHTML = html;
+
+      wrap.innerHTML = "";
+      wrap.appendChild(list);
     }).catch(function(){
       wrap.innerHTML = '<div class="card empty-state">Could not load your requests. Check your connection.</div>';
     });
   }
 
   // ================================================================
+  // EDIT REQUISITION VIEW (from My Requests)
+  // ================================================================
+  function openEditView(serial){
+    var contentWrap = document.getElementById("editReqContent");
+    contentWrap.innerHTML = '<div class="loading-note">Loading '+escapeHtml(serial)+'...</div>';
+    showEmpView("edit");
+
+    apiGet({ action: "getBySerial", serial: serial }).then(function(r){
+      if(r.error){ contentWrap.innerHTML = '<div class="card empty-state">'+escapeHtml(r.error)+'</div>'; return; }
+      renderEditForm(r);
+    }).catch(function(){
+      contentWrap.innerHTML = '<div class="card empty-state">Could not reach server.</div>';
+    });
+  }
+
+  function renderEditForm(r){
+    var contentWrap = document.getElementById("editReqContent");
+    var lineItems = [];
+    try{ lineItems = JSON.parse(r["Line Items Detail"] || "[]"); }catch(e){ lineItems = []; }
+
+    // Build the edit UI
+    var lineCardsHtml = '';
+    var lineCardIds = [];
+    lineItems.forEach(function(li, idx){
+      var lid = "edit-ln-"+(idx+1);
+      lineCardIds.push(lid);
+      var rateTypeBtns = ["To Be Given Later","Range","Approx","Exact"].map(function(rt){
+        return '<button type="button" class="segmented-option'+(rt===li.costType?" active":"")+ '" data-value="'+rt+'">'+rt+'</button>';
+      }).join("");
+
+      var costFieldHtml = "";
+      if(li.costType==="Range"){
+        costFieldHtml = '<div class="cost-value-fields" style="margin-top:8px;">'+
+          '<input type="number" class="li-cost-min" placeholder="Min (₹)" value="'+(li.costMin||"")+'">'+
+          '<input type="number" class="li-cost-max" placeholder="Max (₹)" value="'+(li.costMax||"")+'">'+'</div>';
+      } else if(li.costType==="Approx"||li.costType==="Exact"){
+        costFieldHtml = '<input type="number" class="li-cost-value" placeholder="Rate (₹)" value="'+(li.costValue||"")+'" style="width:100%;margin-top:8px;">';
+      }
+
+      var gstHtml = (li.gstApplicable) ?
+        '<div class="form-grid" style="margin-top:10px;">'+
+          '<div class="form-group"><label>GST %</label><input type="number" class="li-gst-percent" value="'+(li.gstPercent||"")+'"></div>'+
+          '<div class="form-group"><label>Rate after GST</label><input type="text" class="li-rate-after-gst" readonly style="background:var(--bg);"></div>'+
+        '</div>' : "";
+
+      lineCardsHtml +=
+        '<div class="line-card" data-line-id="'+lid+'" data-gst-applicable="'+(li.gstApplicable?"yes":"no")+'">' +
+          '<div class="line-card-top">' +
+            '<span class="line-card-num">Line '+(idx+1)+'</span>' +
+          '</div>' +
+          '<div class="form-group"><label>Product Name *</label><input type="text" class="li-item" value="'+escapeHtml(li.item||"")+'"></div>' +
+          '<div class="form-group" style="margin-top:12px;"><label>Description</label><textarea class="li-description" style="min-height:80px;resize:vertical;">'+escapeHtml(li.description||"")+'</textarea></div>' +
+          '<div class="line-grid-3" style="margin-top:12px;">'+
+            '<div class="form-group"><label>Client *</label><input type="text" class="li-client" value="'+escapeHtml(li.client||"")+'"></div>'+
+            '<div class="form-group"><label>Quantity *</label><input type="number" class="li-qty" min="1" value="'+(li.qty||1)+'"></div>'+
+            '<div class="form-group"><label>Priority</label>'+
+              '<select class="li-priority">'+
+                ['Low','Medium','Urgent'].map(function(p){ return '<option value="'+p+'"'+(p===li.priority?' selected':'')+'>'+p+'</option>'; }).join("")+
+              '</select>'+
+            '</div>'+
+          '</div>'+
+          '<div class="form-group" style="margin-top:4px;"><label>Rate Type</label><div class="segmented-control li-ratetype-group">'+rateTypeBtns+'</div></div>'+
+          '<div class="li-rate-value-wrap" style="margin-top:8px;">'+costFieldHtml+'</div>'+
+          gstHtml+
+          '<div style="margin-top:10px;">'+
+            '<button type="button" class="add-note-link" data-role="note-toggle">'+(li.note?"− Remove note":"+ Add note")+'</button>'+
+            '<div class="reveal-block'+(li.note?" show":"")+ '" data-role="note-field" '+(li.note?'':'style="display:none;"')+'>'+
+              '<input type="text" class="li-note" placeholder="Optional note" style="width:100%;margin-top:6px;" value="'+escapeHtml(li.note||"")+'">'+
+            '</div>'+
+          '</div>'+
+          '<div class="line-total-row">'+
+            '<span>Total</span>'+
+            '<span class="line-total-value pending">—</span>'+
+          '</div>'+
+        '</div>';
+    });
+
+    contentWrap.innerHTML =
+      '<div class="form-banner" style="margin-bottom:22px;">'+
+        '<div class="fb-logo"><img src="logo.png" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"><span class="fb-fallback" style="display:none;">ST</span></div>'+
+        '<div class="fb-text"><h2>Skytel Tele Services Pvt. Ltd.</h2><span>Edit Requisition — '+escapeHtml(r["Serial No"])+'</span></div>'+
+      '</div>'+
+      '<div class="card">'+
+        '<div class="req-meta-row">'+
+          '<div class="req-meta-field"><label>Date</label><input type="date" id="editReqDate" value="'+escapeHtml(String(r["Submission Date"]||"").slice(0,10))+'"></div>'+
+          '<div class="req-meta-field"><label>Time</label><input type="time" id="editReqTime" value="'+escapeHtml(String(r["Submission Time"]||"").slice(0,5))+'"></div>'+
+          '<div class="req-meta-field"><label>Requisition Number</label>'+
+            '<div class="serial-input-group"><span class="serial-prefix-badge">SKY-PR-</span><input type="text" readonly value="'+escapeHtml(String(r["Serial No"]||"").replace(/^SKY-PR-/,""))+'"></div>'+
+          '</div>'+
+        '</div>'+
+        '<div style="margin-bottom:18px;"><label class="field-label">Sales Manager</label>'+
+          '<input type="text" id="editSalesManager" value="'+escapeHtml(r["Sales Manager"]||"")+ '" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:\'Inter\',sans-serif;font-size:13.5px;background:var(--bg);">'+
+        '</div>'+
+        '<div class="edit-section-title">Line Items</div>'+
+        '<div id="editLineCardsWrap" class="line-cards-wrap">'+lineCardsHtml+'</div>'+
+        '<button type="button" class="submit-btn" id="saveEditBtn" style="margin-top:8px;">Save Changes</button>'+
+      '</div>';
+
+    // Wire each card for rate-type switching + totals
+    var editCards = Array.prototype.slice.call(document.getElementById("editLineCardsWrap").children);
+    editCards.forEach(function(card){
+      // Rate type segmented
+      var rateGroup = card.querySelector(".li-ratetype-group");
+      var rateValueWrap = card.querySelector(".li-rate-value-wrap");
+      rateGroup.querySelectorAll(".segmented-option").forEach(function(btn){
+        btn.addEventListener("click", function(){
+          rateGroup.querySelectorAll(".segmented-option").forEach(function(b){ b.classList.remove("active"); });
+          btn.classList.add("active");
+          renderRateValueFields(card, rateValueWrap, btn.getAttribute("data-value"));
+          computeLineTotal(card);
+        });
+      });
+      // Qty change
+      var qtyEl = card.querySelector(".li-qty");
+      if(qtyEl) qtyEl.addEventListener("input", function(){ computeLineTotal(card); });
+      card.addEventListener("input", function(e){
+        if(e.target.classList.contains("li-gst-percent")) computeLineTotal(card);
+        if(e.target.classList.contains("li-cost-value")) computeLineTotal(card);
+        if(e.target.classList.contains("li-cost-min")||e.target.classList.contains("li-cost-max")) computeLineTotal(card);
+      });
+      // Note toggle
+      var noteToggle = card.querySelector('[data-role="note-toggle"]');
+      var noteField = card.querySelector('[data-role="note-field"]');
+      if(noteToggle && noteField){
+        var noteOpen = noteField.classList.contains("show");
+        noteToggle.addEventListener("click", function(){
+          noteOpen = !noteOpen;
+          if(noteOpen){ noteField.style.display="block"; requestAnimationFrame(function(){ noteField.classList.add("show"); }); }
+          else { noteField.classList.remove("show"); }
+          noteToggle.textContent = noteOpen ? "− Remove note" : "+ Add note";
+        });
+      }
+      // Compute initial total
+      computeLineTotal(card);
+    });
+
+    // Save changes
+    document.getElementById("saveEditBtn").addEventListener("click", function(){
+      var updatedItems = editCards.map(function(card){
+        var rateType = (card.querySelector(".segmented-option.active")||{getAttribute:function(){ return "To Be Given Later";}}).getAttribute("data-value");
+        var li = {
+          item: (card.querySelector(".li-item")||{value:""}).value.trim(),
+          description: (card.querySelector(".li-description")||{value:""}).value.trim(),
+          client: (card.querySelector(".li-client")||{value:""}).value.trim(),
+          qty: parseInt((card.querySelector(".li-qty")||{value:"1"}).value,10)||1,
+          priority: (card.querySelector(".li-priority")||{value:"Medium"}).value,
+          costType: rateType,
+          costValue:"", costMin:"", costMax:"",
+          gstApplicable: card.getAttribute("data-gst-applicable")==="yes",
+          gstPercent:"",
+          note: (card.querySelector(".li-note")||{value:""}).value.trim()
+        };
+        if(!li.item){ showToast("Product name is required on every line.",true); throw new Error("validation"); }
+        if(!li.client){ showToast("Client name is required on every line.",true); throw new Error("validation"); }
+        if(rateType==="Range"){
+          li.costMin=(card.querySelector(".li-cost-min")||{value:""}).value;
+          li.costMax=(card.querySelector(".li-cost-max")||{value:""}).value;
+        } else if(rateType==="Approx"||rateType==="Exact"){
+          li.costValue=(card.querySelector(".li-cost-value")||{value:""}).value;
+          if(li.gstApplicable) li.gstPercent=(card.querySelector(".li-gst-percent")||{value:""}).value;
+        }
+        return li;
+      });
+
+      var btn = document.getElementById("saveEditBtn");
+      btn.disabled=true; btn.textContent="Saving...";
+      apiPost({
+        action:"updateRequisition",
+        serial: r["Serial No"],
+        employeeEmail: state.currentUser,
+        lineItems: updatedItems
+      }).then(function(res){
+        btn.disabled=false; btn.textContent="Save Changes";
+        if(res.error){ showToast(res.error,true); return; }
+        showToast("Requisition "+r["Serial No"]+" updated. Director has been notified.");
+        showEmpView("landing");
+        renderMyRequests();
+      }).catch(function(err){
+        if(err.message!=="validation"){
+          btn.disabled=false; btn.textContent="Save Changes";
+          showToast("Network error — could not save. Please retry.",true);
+        } else { btn.disabled=false; btn.textContent="Save Changes"; }
+      });
+    });
+  }
+
+  // ================================================================
   // UPDATE EXISTING REQUISITION (lookup by serial + edit cost)
   // ================================================================
-  document.getElementById("lookupSerialBtn").addEventListener("click", function(){
-    var serial = document.getElementById("lookupSerialInput").value.trim();
-    if(!serial){ showToast("Enter a serial number.", true); return; }
+  // ================================================================
+  // UPDATE EXISTING REQUISITION — dropdown of incomplete reqs
+  // ================================================================
+  function loadIncompleteReqsDropdown(){
+    var sel = document.getElementById("incompleteReqSelect");
+    var note = document.getElementById("incompleteLoadNote");
+    sel.innerHTML = '<option value="">Loading…</option>';
+    sel.disabled = true;
+    note.textContent = "";
+
+    apiGet({ action: "getDashboard", employeeEmail: state.currentUser }).then(function(rows){
+      sel.disabled = false;
+      if(rows.error){ sel.innerHTML = '<option value="">Error loading — try again</option>'; return; }
+
+      // Incomplete = Marker Color is Red (at least one line without Exact cost)
+      // Exclude Approved/Rejected (already decided) — only Pending counts
+      var incomplete = rows.filter(function(r){
+        return r["Marker Color"] === "Red" && r["Status"] === "Pending";
+      });
+
+      if(!incomplete.length){
+        sel.innerHTML = '<option value="">No incomplete requisitions found</option>';
+        note.textContent = "All your pending requisitions already have complete cost details.";
+        return;
+      }
+
+      incomplete.sort(function(a,b){ return (b["Serial No"]||"").localeCompare(a["Serial No"]||""); });
+      sel.innerHTML = '<option value="">— Select a requisition —</option>';
+      incomplete.forEach(function(r){
+        var label = r["Serial No"] + " — " + (r["Item Summary"]||"") + " (" + (r["Client(s)"]||"") + ")";
+        var opt = document.createElement("option");
+        opt.value = r["Serial No"];
+        opt.textContent = label;
+        sel.appendChild(opt);
+      });
+      note.textContent = incomplete.length + " incomplete requisition" + (incomplete.length>1?"s":"") + " found.";
+    }).catch(function(){
+      sel.disabled = false;
+      sel.innerHTML = '<option value="">Network error — try again</option>';
+    });
+  }
+
+  document.getElementById("loadIncompleteBtn").addEventListener("click", function(){
+    var serial = document.getElementById("incompleteReqSelect").value.trim();
+    if(!serial){ showToast("Please select a requisition from the list.", true); return; }
     var wrap = document.getElementById("updateResultWrap");
-    wrap.innerHTML = '<div class="loading-note">Looking up '+escapeHtml(serial)+'...</div>';
+    wrap.innerHTML = '<div class="loading-note">Loading '+escapeHtml(serial)+'…</div>';
 
     apiGet({ action: "getBySerial", serial: serial }).then(function(r){
       if(r.error){ wrap.innerHTML = '<div class="card empty-state">'+escapeHtml(r.error)+'</div>'; return; }
@@ -1495,7 +1940,7 @@
     filtered.sort(function(a,b){ return (b["Serial No"]||"").localeCompare(a["Serial No"]||""); });
 
     var html = '<table><thead><tr>' +
-      '<th>Serial No</th><th>Employee</th><th>Item</th><th>Client(s)</th><th>Cost</th><th>Priority</th><th>Submitted</th><th>Status</th><th>Action</th>' +
+      '<th>Serial No</th><th>Employee</th><th>Item</th><th>Client(s)</th><th>Cost</th><th>Priority</th><th>Submitted</th><th>Status</th><th>Action</th><th>Link</th>' +
       '</tr></thead><tbody>';
 
     filtered.forEach(function(r){
@@ -1520,6 +1965,7 @@
         '<td>'+escapeHtml(r["Submission Date"])+' '+escapeHtml(r["Submission Time"])+'</td>' +
         '<td><span class="status-pill '+String(r["Status"]||"pending").toLowerCase()+'">'+escapeHtml(r["Status"])+'</span></td>' +
         '<td>'+actionCell+'</td>' +
+        '<td><button class="copy-link-btn dir-copy-link" data-serial="'+escapeHtml(r["Serial No"])+'" style="font-size:11px;padding:5px 10px;">🔗</button></td>' +
         '</tr>';
     });
 
@@ -1529,6 +1975,22 @@
     wrap.querySelectorAll(".action-btn").forEach(function(btn){
       btn.addEventListener("click", function(){
         openModal(btn.getAttribute("data-serial"), btn.getAttribute("data-decision"));
+      });
+    });
+
+    wrap.querySelectorAll(".dir-copy-link").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var url = buildShareLink(btn.getAttribute("data-serial"));
+        navigator.clipboard.writeText(url).then(function(){
+          btn.textContent = "✓"; btn.classList.add("copied");
+          setTimeout(function(){ btn.textContent = "🔗"; btn.classList.remove("copied"); }, 2000);
+        }).catch(function(){
+          var ta = document.createElement("textarea"); ta.value = url;
+          ta.style.position="fixed"; ta.style.opacity="0";
+          document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+          btn.textContent = "✓"; btn.classList.add("copied");
+          setTimeout(function(){ btn.textContent = "🔗"; btn.classList.remove("copied"); }, 2000);
+        });
       });
     });
   }
@@ -1580,6 +2042,170 @@
       closeModal();
       showToast("Network error — could not save decision.", true);
     });
+  });
+
+  // ================================================================
+  // SHARED VIEW — read-only requisition view for any listed user
+  // ================================================================
+  function showSharedView(serial, token){
+    // Hide all other panels, show the shared view section
+    document.getElementById("employeePanel").classList.remove("active");
+    document.getElementById("directorPanel").classList.remove("active");
+    var panel = document.getElementById("sharedViewPanel");
+    panel.style.display = "block";
+
+    var content = document.getElementById("sharedViewContent");
+    content.innerHTML = '<div class="loading-note">Loading requisition '+escapeHtml(serial)+'…</div>';
+
+    var params = { action: "getBySerial", serial: serial };
+    if(token) params.token = token;
+
+    apiGet(params).then(function(r){
+      if(r.error){ content.innerHTML = '<div class="card empty-state">This link is invalid or the requisition does not exist.</div>'; return; }
+      renderSharedView(r, token);
+    }).catch(function(){
+      content.innerHTML = '<div class="card empty-state">Could not reach server. Check your connection.</div>';
+    });
+  }
+
+  function buildShareLink(serial){
+    var base = window.location.href.split("#")[0].split("?")[0];
+    var token = "";
+    try{ token = localStorage.getItem("skt_" + serial) || ""; }catch(e){}
+    if(token) return base + "#view/" + encodeURIComponent(serial) + "/" + encodeURIComponent(token);
+    return base + "#view/" + encodeURIComponent(serial);
+  }
+
+  // Extract serial + token from a #view/... hash
+  function parseShareHash(hash){
+    if(!hash || hash.indexOf("#view/") !== 0) return null;
+    var parts = hash.slice(6).split("/");
+    return {
+      serial: decodeURIComponent(parts[0] || "").trim(),
+      token:  decodeURIComponent(parts[1] || "").trim() || null
+    };
+  }
+
+  function renderSharedView(r, token){
+    var content = document.getElementById("sharedViewContent");
+    var lineItems = [];
+    try{ lineItems = JSON.parse(r["Line Items Detail"] || "[]"); }catch(e){ lineItems = []; }
+
+    var serial = r["Serial No"] || "";
+    var statusCls = String(r["Status"]||"pending").toLowerCase();
+    var markerCls = r["Marker Color"]==="Green" ? "green" : "red";
+    // Build the share URL: use passed token directly (works for both owner and recipient)
+    var base = window.location.href.split("#")[0].split("?")[0];
+    var shareUrl = token
+      ? base + "#view/" + encodeURIComponent(serial) + "/" + encodeURIComponent(token)
+      : buildShareLink(serial);
+
+    // Viewer identity — can they edit? Only the owner employee can edit.
+    var u = state.currentUserProfile;
+    var isOwner = (u && u.role === "employee" && r["Employee Email"] === state.currentUser);
+
+    var lineHtml = lineItems.map(function(li, idx){
+      var costStr = li.costType || "—";
+      if(li.costType==="Exact"||li.costType==="Approx") costStr += li.costValue ? " — ₹"+Number(li.costValue).toLocaleString("en-IN") : "";
+      if(li.costType==="Range") costStr += (li.costMin||li.costMax) ? " ₹"+(li.costMin||"?")+" – ₹"+(li.costMax||"?") : "";
+      return '<div class="req-line-mini-card">'+
+        '<div class="rlm-top">'+
+          '<span class="rlm-item">'+(idx+1)+'. '+escapeHtml(li.item||"")+'</span>'+
+          '<span class="rlm-meta">Qty: '+escapeHtml(String(li.qty||1))+'</span>'+
+        '</div>'+
+        '<div class="rlm-meta">Client: '+escapeHtml(li.client||"—")+'  ·  Rate: '+escapeHtml(costStr)+'  ·  Priority: '+escapeHtml(li.priority||"—")+'</div>'+
+        (li.description ? '<div class="rlm-meta" style="margin-top:5px;">'+escapeHtml(li.description)+'</div>' : '')+
+        (li.note ? '<div class="rlm-meta" style="margin-top:4px;font-style:italic;">Note: '+escapeHtml(li.note)+'</div>' : '')+
+      '</div>';
+    }).join("");
+
+    content.innerHTML =
+      '<div class="shared-view-banner">'+
+        '<div class="fb-logo"><img src="logo.png" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"><span class="fb-fallback" style="display:none;">ST</span></div>'+
+        '<div class="fb-text"><h2>Skytel Tele Services Pvt. Ltd.</h2><span>Purchase Requisition — '+escapeHtml(serial)+'</span></div>'+
+      '</div>'+
+
+      '<div class="card" style="margin-bottom:18px;">'+
+        '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px;">'+
+          '<span class="serial-badge">'+escapeHtml(serial)+'</span>'+
+          '<span class="status-pill '+statusCls+'">'+escapeHtml(r["Status"]||"Pending")+'</span>'+
+          '<span class="marker-cell" style="font-size:12px;"><span class="marker-dot '+markerCls+'"></span>'+escapeHtml(r["Overall Cost Type"]||"")+'</span>'+
+          (r["Total Cost"] ? '<span style="font-family:\'JetBrains Mono\',monospace;font-size:14px;font-weight:700;color:var(--navy);">₹'+Number(r["Total Cost"]).toLocaleString("en-IN")+'</span>' : '')+
+        '</div>'+
+
+        '<div class="ro-grid">'+
+          '<div class="ro-field-group"><label>Submitted By</label><div class="ro-val">'+escapeHtml(r["Employee Name"]||"—")+'</div></div>'+
+          '<div class="ro-field-group"><label>Date</label><div class="ro-val">'+escapeHtml(String(r["Submission Date"]||"").slice(0,10))+'</div></div>'+
+          '<div class="ro-field-group"><label>Time</label><div class="ro-val">'+escapeHtml(String(r["Submission Time"]||"").slice(0,5))+'</div></div>'+
+          '<div class="ro-field-group"><label>Sales Manager</label><div class="ro-val">'+escapeHtml(r["Sales Manager"]||"—")+'</div></div>'+
+          '<div class="ro-field-group"><label>Priority</label><div class="ro-val">'+escapeHtml(r["Priority"]||"—")+'</div></div>'+
+          '<div class="ro-field-group"><label>Director Comment</label><div class="ro-val">'+(r["Director Comment"] ? escapeHtml(r["Director Comment"]) : '—')+'</div></div>'+
+        '</div>'+
+
+        '<div class="req-line-items-section"><h4>Line Items</h4>'+lineHtml+'</div>'+
+
+        // Share link box
+        '<div style="margin-top:18px;padding-top:16px;border-top:1px dashed var(--border);">'+
+          '<div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;">Shareable Link</div>'+
+          '<div class="share-link-row">'+
+            '<span class="sl-url" id="shareUrlDisplay">'+escapeHtml(shareUrl)+'</span>'+
+            '<button class="copy-link-btn" id="copyLinkBtn">Copy Link</button>'+
+          '</div>'+
+        '</div>'+
+
+        // Edit button — only for the requisition owner
+        (isOwner ?
+          '<div style="margin-top:16px;">'+
+            '<button class="edit-req-btn" id="sharedEditBtn">✏️ Edit this Requisition</button>'+
+          '</div>' : '')+
+      '</div>';
+
+    // Wire copy button
+    document.getElementById("copyLinkBtn").addEventListener("click", function(){
+      var btn = this;
+      navigator.clipboard.writeText(shareUrl).then(function(){
+        btn.textContent = "Copied!";
+        btn.classList.add("copied");
+        setTimeout(function(){ btn.textContent = "Copy Link"; btn.classList.remove("copied"); }, 2000);
+      }).catch(function(){
+        // Fallback for http/non-secure contexts
+        var ta = document.createElement("textarea");
+        ta.value = shareUrl;
+        ta.style.position = "fixed"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        btn.textContent = "Copied!";
+        btn.classList.add("copied");
+        setTimeout(function(){ btn.textContent = "Copy Link"; btn.classList.remove("copied"); }, 2000);
+      });
+    });
+
+    // Wire edit button (owner only)
+    if(isOwner){
+      document.getElementById("sharedEditBtn").addEventListener("click", function(){
+        document.getElementById("sharedViewPanel").style.display = "none";
+        window.location.hash = "";
+        document.getElementById("employeePanel").classList.add("active");
+        openEditView(serial);
+      });
+    }
+  }
+
+  // Back from shared view — return to the user's normal home
+  document.getElementById("backFromShared").addEventListener("click", function(){
+    window.location.hash = "";
+    document.getElementById("sharedViewPanel").style.display = "none";
+    var u = state.currentUserProfile;
+    if(!u) return;
+    if(u.role === "director"){
+      document.getElementById("directorPanel").classList.add("active");
+      renderDirectorView();
+    } else {
+      document.getElementById("employeePanel").classList.add("active");
+      showEmpView("landing");
+      renderMyRequests();
+    }
   });
 
   // ---------- Utility ----------
