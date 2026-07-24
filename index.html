@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -774,7 +775,7 @@
                 <label>Requisition Number</label>
                 <div class="serial-input-group">
                   <span class="serial-prefix-badge" id="serialPrefixBadge">SKY-PR-</span>
-                  <input type="text" id="serialSuffixInput" placeholder="loading…" readonly style="background:var(--bg);color:var(--text-muted);cursor:default;">
+                  <input type="text" id="serialSuffixInput" placeholder="000001">
                 </div>
               </div>
             </div>
@@ -1104,16 +1105,68 @@
     loadSerialPreview();
   }
 
+  // Employee → serial prefix mapping (must mirror apps_script_bridge.gs)
+  var EMPLOYEE_SERIAL_PREFIX = {
+    "s.das@skytelservices.com":             "SD",
+    "marketing.kol@skytelteleservices.com": "IS"
+  };
+
+  function localSerialPreview(){
+    // Compute next serial locally from cached dashboard rows — instant, no network.
+    var email = state.currentUser || "";
+    var prefix = EMPLOYEE_SERIAL_PREFIX[email] || "";
+    var padLen = prefix ? 5 : 6;
+    var pattern = prefix
+      ? new RegExp("^SKY-PR-" + prefix + "(\\d+)$")
+      : new RegExp("^SKY-PR-(\\d+)$");
+
+    var maxNum = 0;
+    (state.dashboardCache || []).forEach(function(row){
+      var serial = (row["Serial No"] || "").toString();
+      var m = serial.match(pattern);
+      if(m){ var n = parseInt(m[1], 10); if(n > maxNum) maxNum = n; }
+    });
+    var nextNum = maxNum + 1;
+    var padded = ("000000" + nextNum).slice(-padLen);
+    return { prefix: prefix, padded: padded, padLength: padLen };
+  }
+
   function loadSerialPreview(){
     var badge = document.getElementById("serialPrefixBadge");
     var input = document.getElementById("serialSuffixInput");
-    input.value = "";
-    apiGet({ action: "getSerialPreview", employeeEmail: state.currentUser }).then(function(res){
-      if(res.error) return;
-      badge.textContent = "SKY-PR-" + (res.prefix || "");
-      input.value = res.padded;
-      input.setAttribute("data-padlength", res.padLength);
-    }).catch(function(){ /* silent — server will still assign a valid serial on submit */ });
+
+    // Step 1 — show local estimate immediately (from cached rows)
+    var local = localSerialPreview();
+    badge.textContent = "SKY-PR-" + (local.prefix || "");
+    input.value = local.padded;
+    input.setAttribute("data-padlength", local.padLength);
+    input.style.color = "";
+
+    // Step 2 — try server for a more authoritative number (5 s timeout)
+    var done = false;
+    var timer = setTimeout(function(){
+      if(!done){ done = true; /* timeout — local estimate is already shown, that's fine */ }
+    }, 5000);
+
+    var fetchPromise = fetch(APPS_SCRIPT_URL + "?action=getSerialPreview&employeeEmail=" + encodeURIComponent(state.currentUser || ""))
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        if(done) return;
+        done = true;
+        clearTimeout(timer);
+        if(res && !res.error && res.padded){
+          badge.textContent = "SKY-PR-" + (res.prefix || "");
+          input.value = res.padded;
+          input.setAttribute("data-padlength", res.padLength || local.padLength);
+        }
+        // else: keep the local estimate already shown
+      })
+      .catch(function(){
+        if(done) return;
+        done = true;
+        clearTimeout(timer);
+        // Local estimate is already visible — nothing more to do
+      });
   }
 
   function revealBlock(el, show){
@@ -1449,7 +1502,8 @@
     var wrap = document.getElementById("myRequestsTableWrap");
     wrap.innerHTML = '<div class="loading-note">Loading...</div>';
     apiGet({ action: "getDashboard", employeeEmail: state.currentUser }).then(function(rows){
-      if(rows.error){ wrap.innerHTML = '<div class="card empty-state">'+escapeHtml(rows.error)+'</div>'; return; }
+      state.dashboardCache = Array.isArray(rows) ? rows : [];
+      if(rows.error){ wrap.innerHTML = '<div class="card empty-state">'+(rows.error)+'</div>'; return; }
       if(!rows.length){ wrap.innerHTML = '<div class="card empty-state">No requests submitted yet.</div>'; return; }
 
       rows.sort(function(a,b){ return (b["Serial No"]||"").localeCompare(a["Serial No"]||""); });
