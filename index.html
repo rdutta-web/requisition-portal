@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -234,13 +233,14 @@
     display:block;font-size:12px;font-weight:600;color:var(--text-muted);
     text-transform:uppercase;letter-spacing:0.03em;margin-bottom:7px;
   }
-  .form-group input, .form-group select, .form-group textarea{
+  .form-group input, .form-group select, .form-group textarea,
+  .line-card input, .line-card select, .line-card textarea {
     width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;
     font-family:'Inter',sans-serif;font-size:13.5px;color:var(--text);background:var(--bg);
   }
-  .form-group textarea{resize:vertical;min-height:80px;}
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus{outline:none;border-color:var(--navy-lighter);}
-
+  .form-group textarea, .line-card textarea {resize:vertical;min-height:80px;}
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus,
+  .line-card input:focus, .line-card select:focus, .line-card textarea:focus {outline:none;border-color:var(--navy-lighter);}
   .submit-btn{
     background:var(--navy);color:#fff;border:none;padding:11px 24px;border-radius:8px;
     font-size:13.5px;font-weight:600;cursor:pointer;margin-top:6px;
