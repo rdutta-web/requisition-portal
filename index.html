@@ -983,12 +983,25 @@
   // ---------- Google Sign-In ----------
   var authErrorEl = document.getElementById("authError");
 
+// Replace lines 463-468:
   function initGoogleSignIn(){
     if(typeof google === "undefined" || !google.accounts){
       // Library not loaded yet (e.g. offline preview) — retry shortly.
       setTimeout(initGoogleSignIn, 300);
       return;
     }
+
+    // --- NEW: Check local storage for existing session ---
+    var savedSession = localStorage.getItem("skytel_auth");
+    if(savedSession){
+      var profile = JSON.parse(savedSession);
+      state.currentUser = profile.email;
+      state.currentUserProfile = profile;
+      enterApp();
+      return; // Skip rendering the login button
+    }
+    // -----------------------------------------------------
+
     google.accounts.id.initialize({
       client_id: GOOGLE_CLIENT_ID,
       callback: handleGoogleCredential
@@ -1042,6 +1055,7 @@
       initials: user.initials,
       name: user.name || payload.name || email
     };
+    localStorage.setItem("skytel_auth", JSON.stringify(state.currentUserProfile));
     enterApp();
   }
 
@@ -1051,6 +1065,7 @@
   }
 
   document.getElementById("logoutBtn").addEventListener("click", function(){
+    localStorage.removeItem("skytel_auth");
     state.currentUser = null;
     state.currentUserProfile = null;
     document.getElementById("appScreen").style.display = "none";
