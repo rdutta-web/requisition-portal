@@ -1888,7 +1888,8 @@
         action:"updateRequisition",
         serial: r["Serial No"],
         employeeEmail: state.currentUser,
-        lineItems: updatedItems
+        lineItems: updatedItems,
+        resetStatus: true // Tells backend to reset status to Pending
       }).then(function(res){
         btn.disabled=false; btn.textContent="Save Changes";
         if(res.error){ showToast(res.error,true); return; }
@@ -1924,7 +1925,7 @@
       // Incomplete = Marker Color is Red (at least one line without Exact cost)
       // Exclude Approved/Rejected (already decided) — only Pending counts
       var incomplete = rows.filter(function(r){
-        return r["Marker Color"] === "Red" && r["Status"] === "Pending";
+        return r["Marker Color"] === "Red" && (r["Status"] === "Pending" || r["Status"] === "Rejected");
       });
 
       if(!incomplete.length){
@@ -2019,7 +2020,8 @@
         action: "updateRequisition",
         serial: r["Serial No"],
         employeeEmail: state.currentUser,
-        lineItems: updatedItems
+        lineItems: updatedItems,
+        resetStatus: true // Tells backend to reset status to Pending
       }).then(function(res){
         btn.disabled = false; btn.textContent = "Save Changes";
         if(res.error){ showToast(res.error, true); return; }
