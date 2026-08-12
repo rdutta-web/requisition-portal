@@ -32,20 +32,47 @@ function getDateGroup(dateStr) {
 
 function pad2(n){ return n < 10 ? "0"+n : ""+n; }
 
-function apiGet(params){
+function apiGet(params, retries) {
+  retries = retries || 3;
   var qs = Object.keys(params).map(function(k){
     return encodeURIComponent(k) + "=" + encodeURIComponent(params[k]);
   }).join("&");
-  return fetch(APPS_SCRIPT_URL + "?" + qs).then(function(r){ return r.json(); });
+
+  return fetch(APPS_SCRIPT_URL + "?" + qs)
+    .then(function(r) { return r.json(); })
+    .catch(function(err) {
+      if (retries > 1) {
+        return new Promise(function(resolve) {
+          setTimeout(function() {
+            resolve(apiGet(params, retries - 1));
+          }, 2000); // wait 2 seconds then retry
+        });
+      }
+      throw err;
+    });
 }
 
-function apiPost(payload){
+function apiPost(payload, retries) {
+  retries = retries || 3;
   return fetch(APPS_SCRIPT_URL, {
     method: "POST",
-    headers: { "Content-Type": "text/plain;charset=utf-8" }, // avoids CORS preflight on Apps Script
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
     body: JSON.stringify(payload)
-  }).then(function(r){ return r.json(); });
+  })
+    .then(function(r) { return r.json(); })
+    .catch(function(err) {
+      if (retries > 1) {
+        return new Promise(function(resolve) {
+          setTimeout(function() {
+            resolve(apiPost(payload, retries - 1));
+          }, 2000);
+        });
+      }
+      throw err;
+    });
 }
+
+
 
 function showToast(msg, isError){
   var t = document.getElementById("toast");
