@@ -2,7 +2,8 @@
 
 var GOOGLE_CLIENT_ID = "471164847299-atuh5sfbmc23fnmm41uk8gatfo1kg17r.apps.googleusercontent.com";
 
-var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxufuXPMFwSiDnbnpH2oY4_yLEJkoTopQN9ZSm_Ge0Ww-PV83GirX1zOC8ReACWaCzpqg/exec";
+var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwolHLLmKbITNDn8BnM00Iu5bBA8YaNhDUvh7PPku1OFrcM9jSZvxvllZSJ2WpcOiWg8g/exec";
+
 
 var AUTHORIZED_USERS = {
   "rupamislam123@gmail.com":              { role: "employee", initials:"RI", name:"Rupam Islam" },
