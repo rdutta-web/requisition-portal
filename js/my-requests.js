@@ -2,7 +2,7 @@
 
 function renderMyRequests(){
   var wrap = document.getElementById("myRequestsTableWrap");
-  wrap.innerHTML = '<div class="loading-note">Loading...</div>';
+  wrap.innerHTML = '<div class="loading-note">Loading your requests — this may take a few seconds on first load...</div>';
   apiGet({ action: "getDashboard", employeeEmail: state.currentUser }).then(function(rows){
     state.dashboardCache = Array.isArray(rows) ? rows : [];
     if(rows.error){ wrap.innerHTML = '<div class="card empty-state">'+(rows.error)+'</div>'; return; }
