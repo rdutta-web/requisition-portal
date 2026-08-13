@@ -265,14 +265,12 @@ function renderDirectorGridView(rows){
 
       var itemsHtml;
       if(lineItems.length > 1){
-        var visibleRows = lineItems.slice(0, 3).map(function(li){
-          return '<tr><td>'+escapeHtml(li.item||"")+'</td><td>'+escapeHtml(String(li.qty||1))+'</td><td>'+escapeHtml(li.client||"")+'</td></tr>';
-        }).join("");
-        var moreCount = lineItems.length - 3;
-        itemsHtml = '<div class="rgc-mini-table"><table><thead><tr><th>Item</th><th>Qty</th><th>Client</th></tr></thead>'+
-          '<tbody>'+visibleRows+'</tbody></table>'+
-          (moreCount > 0 ? '<div class="rgc-more">+'+moreCount+' more</div>' : '') +
-        '</div>';
+        var allRows = lineItems.map(function(li){
+  return '<tr><td>'+escapeHtml(li.item||"")+'</td><td>'+escapeHtml(String(li.qty||1))+'</td><td>'+escapeHtml(li.client||"")+'</td></tr>';
+}).join("");
+itemsHtml = '<div class="rgc-mini-table" style="max-height:112px;overflow-y:auto;"><table><thead><tr><th>Item</th><th>Qty</th><th>Client</th></tr></thead>'+
+  '<tbody>'+allRows+'</tbody></table>'+
+'</div>';
       } else {
         var only = lineItems[0] || {};
         itemsHtml = '<div class="rgc-single-item">'+escapeHtml(only.item||r["Item Summary"]||"")+' &middot; Qty '+escapeHtml(String(only.qty||1))+' &middot; '+escapeHtml(only.client||"")+'</div>';
